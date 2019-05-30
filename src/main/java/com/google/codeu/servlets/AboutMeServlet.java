@@ -62,4 +62,6 @@ public class AboutMeServlet extends HttpServlet {
 
   response.sendRedirect("/user-page.html?user=" + userEmail);
  }
+
+ 
 }
