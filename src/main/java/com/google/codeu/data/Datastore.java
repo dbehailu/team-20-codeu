@@ -26,6 +26,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*; 
 import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
@@ -35,6 +36,16 @@ public class Datastore {
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
+  }
+
+  public Set<String> getUsers(){
+    Set<String> users = new HashSet<>();
+    Query query = new Query("Message");
+    PreparedQuery results = datastore.prepare(query);
+    for(Entity entity : results.asIterable()) {
+      users.add((String) entity.getProperty("user"));
+    }
+    return users;
   }
 
   /** Stores the Message in Datastore. */
