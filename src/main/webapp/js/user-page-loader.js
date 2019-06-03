@@ -45,6 +45,7 @@ function showMessageFormIfViewingSelf() {
         }
       });
       document.getElementById('about-me-form').classList.remove('hidden');
+      document.getElementById('suggestion-form').classList.remove('hidden');
 }
 
 /** Fetches messages and add them to the page. */
@@ -106,10 +107,26 @@ function fetchAboutMe(){
   });
 }
 
+function fetchSuggestion(){
+  const url = '/suggestion?user=' + parameterUsername;
+  fetch(url).then((response) => {
+    return response.text();
+  }).then((suggestion) => {
+    const suggestionContainer = document.getElementById('suggestion-container');
+    if(suggestion == ''){
+      suggestion = 'This user has not entered any information yet.';
+    }
+
+    suggestionContainer.innerHTML = suggestion;
+
+  });
+}
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
+  fetchSuggestion();
 }

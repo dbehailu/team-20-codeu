@@ -41,6 +41,15 @@ limitations under the License.
   </form>
 </div>
 
+<div id="suggestion-container">Loading...</div>
+  <div id="suggestion-form" class="hidden">
+  <form action="/suggestion" method="POST">
+    <textarea name="suggestion" placeholder="suggestion" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
       <br/>
