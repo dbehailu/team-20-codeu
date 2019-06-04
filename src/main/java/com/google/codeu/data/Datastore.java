@@ -158,6 +158,7 @@ public void storeUser(User user) {
  Entity userEntity = new Entity("User", user.getEmail());
  userEntity.setProperty("email", user.getEmail());
  userEntity.setProperty("aboutMe", user.getAboutMe());
+ userEntity.setProperty("suggestion", user.getSuggestion());
  datastore.put(userEntity);
 }
 
@@ -176,7 +177,8 @@ public User getUser(String email) {
  }
 
  String aboutMe = (String) userEntity.getProperty("aboutMe");
- User user = new User(email, aboutMe);
+ String suggestion = (String) userEntity.getProperty("suggestion");
+ User user = new User(email, aboutMe, suggestion);
 
  return user;
 }
