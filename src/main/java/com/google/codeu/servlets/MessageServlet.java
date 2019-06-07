@@ -36,6 +36,10 @@ import org.jsoup.safety.Whitelist;
 public class MessageServlet extends HttpServlet {
 
   public String basicMarkdown(String text) {
+    /**
+    Regex converts anything matching ** [ANYTHING OTHER THAN *s] ** 
+          into <b> [ANYTHING OTHER THAN *s] </b>
+    */
       text = text.replaceAll("\\*\\*([^\\*]*)\\*\\*", "<b>$1</b>");
       return text;
   }
