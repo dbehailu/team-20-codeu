@@ -30,9 +30,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
+
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
 public class MessageServlet extends HttpServlet {
+
+  public String basicMarkdown(String text) {
+    /**
+    Regex converts anything matching ** [ANYTHING OTHER THAN *s] ** 
+          into <b> [ANYTHING OTHER THAN *s] </b>
+    */
+      text = text.replaceAll("\\*\\*([^\\*]*)\\*\\*", "<b>$1</b>");
+      return text;
+  }
 
   private Datastore datastore;
 
@@ -78,6 +88,7 @@ public class MessageServlet extends HttpServlet {
     String user = userService.getCurrentUser().getEmail();
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
+    text = basicMarkdown(text);
     Message message = new Message(user, text);
     datastore.storeMessage(message);
 
