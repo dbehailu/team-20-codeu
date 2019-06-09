@@ -45,3 +45,10 @@
 .hidden {
   display: none;
 }
+
+/* Displays resized image below text. */
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}

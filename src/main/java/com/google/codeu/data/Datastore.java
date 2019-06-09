@@ -92,8 +92,10 @@ public class Datastore {
     return messages;
   }
 
-  /**
-   * Gets messages posted by all users.
+
+
+   /**
+   * Gets messages posted by all users. (Encapsulated version)
    *
    * @return a list of messages posted by all users, or empty list if user has never posted a
    *     message. List is sorted by time descending.
@@ -102,48 +104,14 @@ public class Datastore {
 public List<Message> getAllMessages(){
   List<Message> messages = new ArrayList<>();
 
-  Query query = new Query("Message")
-    .addSort("timestamp", SortDirection.DESCENDING);
-  PreparedQuery results = datastore.prepare(query);
+  Set<String> users = getUsers();
 
-  for (Entity entity : results.asIterable()) {
-   try {
-    String idString = entity.getKey().getName();
-    UUID id = UUID.fromString(idString);
-    String user = (String) entity.getProperty("user");
-    String text = (String) entity.getProperty("text");
-    long timestamp = (long) entity.getProperty("timestamp");
-
-    Message message = new Message(id, user, text, timestamp);
-    messages.add(message);
-   } catch (Exception e) {
-    System.err.println("Error reading message.");
-    System.err.println(entity.toString());
-    e.printStackTrace();
-   }
+  for (String user : users){
+    messages.addAll(getMessages(user));
   }
 
   return messages;
  }
-
-   /**
-   * Gets messages posted by all users. (Encapsulated version to be tested after getUsers is implemented.)
-   *
-   * @return a list of messages posted by all users, or empty list if user has never posted a
-   *     message. List is sorted by time descending.
-   */
-
-// public List<Message> getAllMessages(){
-//   List<Message> messages = new ArrayList<>();
-
-//   Set users = getUsers();
-
-//   for (String user : users.asIterable()){
-//     messages.addAll(getMessages(user));
-//   }
-
-//   return messages;
-//  }
 
 
   /** Returns the total number of messages for all users. */
