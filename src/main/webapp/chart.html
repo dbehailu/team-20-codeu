@@ -3,31 +3,38 @@
   <head>
     <title>A New Chart</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart(){
-      var lost_data = new google.visualization.DataTable();
-      //define columns for the DataTable instance
-      lost_data.addColumn('string', 'Place');
-      lost_data.addColumn('number', 'Item');
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart(){
+          fetch("/lostandfoundchart")
+              .then((response) => {
+                return response.json();
+              })
+              .then((bookJson) => {
+                console.log(bookJson);
+                var bookData = new google.visualization.DataTable();
+                //define columns for the DataTable instance
+                bookData.addColumn('string', 'Location');
+                bookData.addColumn('number', 'Count');
 
-      //add data to book_data
-      lost_data.addRows([
-          ["Library", 6],
-          ["Dining Hall", 10],
-          ["CS Lab", 4],
-          ["Gym", 3],
-          ["Other", 8]
-      ]);
-      var chart = new google.visualization.PieChart(document.getElementById('book_chart'));
-      var options = {
-        title: 'Lost and Found: Locations',
-        is3D: true
-      };
-      chart.draw(lost_data, options);
-    }
-  </script>
+                for (i = 0; i < bookJson.length; i++) {
+                  bookRow = [];
+                  var title = bookJson[i].location;
+                  var ratings = bookJson[i].count;
+                  bookRow.push(title, ratings);
+
+                  bookData.addRow(bookRow);
+               }
+               var chartOptions = {
+                 title: 'Lost and Found: Locations',
+                 is3D: true
+                   };
+               var bookChart = new google.visualization.PieChart(document.getElementById('book_chart'));
+               bookChart.draw(bookData, chartOptions);
+           })
+        }
+    </script>
   </head>
   <body>
     <h1>Chart Project</h1>
