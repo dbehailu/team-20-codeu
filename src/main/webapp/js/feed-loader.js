@@ -20,31 +20,53 @@
     });
   }
   
-  function buildMessageDiv(message){
-   const usernameDiv = document.createElement('div');
-   usernameDiv.classList.add("left-align");
-   usernameDiv.appendChild(document.createTextNode(message.user));
+  // function buildMessageDiv(message){
+  //  const usernameDiv = document.createElement('div');
+  //  usernameDiv.classList.add("left-align");
+  //  usernameDiv.appendChild(document.createTextNode(message.user));
    
-   const timeDiv = document.createElement('div');
-   timeDiv.classList.add('right-align');
-   timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+  //  const timeDiv = document.createElement('div');
+  //  timeDiv.classList.add('right-align');
+  //  timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
    
-   const headerDiv = document.createElement('div');
-   headerDiv.classList.add('message-header');
-   headerDiv.appendChild(usernameDiv);
-   headerDiv.appendChild(timeDiv);
+  //  const headerDiv = document.createElement('div');
+  //  headerDiv.classList.add('message-header');
+  //  headerDiv.appendChild(usernameDiv);
+  //  headerDiv.appendChild(timeDiv);
    
-   const bodyDiv = document.createElement('div');
-   bodyDiv.classList.add('message-body');
-   bodyDiv.innerHTML = message.text;
+  //  const bodyDiv = document.createElement('div');
+  //  bodyDiv.classList.add('message-body');
+  //  bodyDiv.innerHTML = message.text;
    
-   const messageDiv = document.createElement('div');
-   messageDiv.classList.add("message-div");
-   messageDiv.appendChild(headerDiv);
-   messageDiv.appendChild(bodyDiv);
+  //  const messageDiv = document.createElement('div');
+  //  messageDiv.classList.add("message-div");
+  //  messageDiv.appendChild(headerDiv);
+  //  messageDiv.appendChild(bodyDiv);
    
-   return messageDiv;
-  }
+  //  return messageDiv;
+  // }
+
+  function buildMessageDiv(message) {
+  const headerDiv = document.createElement('div');
+  headerDiv.classList.add('message-header');
+  headerDiv.classList.add('padded');
+
+  headerDiv.appendChild(document.createTextNode(
+      message.user + ' - ' + formatDate(message.timestamp)));
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.classList.add('message-body');
+  bodyDiv.classList.add('padded');
+  bodyDiv.innerHTML = message.text;
+
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('rounded');
+  messageDiv.classList.add('panel');
+  messageDiv.appendChild(headerDiv);
+  messageDiv.appendChild(bodyDiv);
+
+  return messageDiv;
+}
   
   // Fetch data and populate the UI of the page.
   function buildUI(){
