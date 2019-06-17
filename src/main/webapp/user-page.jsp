@@ -13,6 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
 
 <!DOCTYPE html>
 <html>
@@ -50,14 +54,24 @@ limitations under the License.
   </form>
 </div>
 
-    <form id="message-form" action="/messages" method="POST" class="hidden">
-      Enter a new message:
+    <form action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
+      <p>Type some text:</p>
+      <textarea name="message"></textarea>
       <br/>
-      <textarea name="text" id="message-input"></textarea>
-      <br/>
-      <input type="submit" value="Submit">
+      <p>Upload an image:</p>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Submit</button>
     </form>
-    <hr/>
+
+    <!--<form id="message-form" action="/messages" method="POST" class="hidden">-->
+      <!--Enter a new message:-->
+      <!--<br/>-->
+      <!--<textarea name="text" id="message-input"></textarea>-->
+      <!--<br/>-->
+      <!--<input type="submit" value="Submit">-->
+    <!--</form>-->
+    <!--<hr/>-->
 
     <div id="message-container">Loading...</div>
 
