@@ -33,7 +33,7 @@ public class TextToSpeech extends HttpServlet {
      try {
          ttsClient = TextToSpeechClient.create();
      } catch (IOException exception) {
-         System.out.println("hello" + exception);
+         System.out.println(exception);
      }
  }
 

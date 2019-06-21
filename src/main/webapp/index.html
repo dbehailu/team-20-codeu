@@ -19,6 +19,7 @@ limitations under the License.
     <title>CodeU 2019 Starter Project</title>
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <script src="/js/text-to-speech.js"></script>
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation();">
     <nav>
@@ -37,10 +38,16 @@ limitations under the License.
 
     <figure>
       <figcaption>Try out Text-To-Speech:</figcaption>
-      <audio controls src="FILL IN WITH SOMETHING">
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
+      <audio id="audio-" src=""></audio>
+      <button type="button" onclick="doTTS();">Play</button>
+
+      <p>
+        <label>Text Area</label>
+        <textarea id = "myText"
+                  rows = "3"
+                  cols = "80">Your text here
+        </textarea>
+      </p>
     </figure>
   </body>
 </html>
