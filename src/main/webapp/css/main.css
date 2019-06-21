@@ -21,7 +21,7 @@
 }*/
 
 body { 
-  background:#ccc; 
+  background:#eeeeee; 
   letter-spacing:.05em;
   margin:5em;
   font-family:gotham rounded a,gotham rounded b,sans-serif;
@@ -48,24 +48,28 @@ nav li {
 
 
 nav a { 
-  color:#A6B1E1;
+  color:#ff9681;
   display:block;
   padding: .5em;  
   text-decoration:none;
   }
 
 nav a:hover {
-  background: #A6B1E1;
+  background: #ff9681;
   color:white;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   }
+
+a:visited {
+    color: #ff9681;
+}
 
 h2 {
   margin: 0;
 }
 
 input[type=submit] {
-  background-color: #A6B1E1;
+  background-color: #ff9681;
   border-radius: 20px;
   height: 50px;
   width: 100px;
@@ -86,7 +90,7 @@ input[type=submit] {
 
 .message-header {
   border-bottom: thin solid black;
-  background-image: linear-gradient(to right, white , #A6B1E1);
+  background-image: linear-gradient(to right, white , #ff9681);
 }
 
 .message-body {
