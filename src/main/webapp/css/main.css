@@ -14,15 +14,110 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 /* Prevent the page from becoming too wide. */
 body {
+=======
+/*body {
+  margin: 0;
+  background: linear-gradient(white, #ccccff) fixed;
+  font-family: sans-serif;
+}*/
+
+body { 
+  background:#eeeeee; 
+  letter-spacing:.05em;
+  margin:5em;
+  font-family:gotham rounded a,gotham rounded b,sans-serif;
+ }
+
+nav {
+	text-align: center;
+	font-size: 1.25em;
+  }	
+	
+nav ul {
+  list-style:none;
+  text-align: center;
+  border-radius: .25em;   
+  background: white;
+  }
+
+nav li { 
+  position:relative; 
+  display:inline-block; 
+  border-bottom: none;
+  border-radius: .25em .25em 0 0;
+  }
+
+
+nav a { 
+  color:#ff9681;
+  display:block;
+  padding: .5em;  
+  text-decoration:none;
+  }
+
+nav a:hover {
+  background: #ff9681;
+  color:white;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+  }
+
+a:visited {
+    color: #ff9681;
+}
+
+h2 {
+  margin: 0;
+}
+
+input[type=submit] {
+  background-color: #ff9681;
+  border-radius: 20px;
+  height: 50px;
+  width: 100px;
+  font-size: 14pt;
+}
+
+#content {
+>>>>>>> 75c3f2d... changed link coloring and general coloring as well
   max-width: 600px;
 }
 
+<<<<<<< HEAD
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
   padding-left: 0;
+=======
+
+#message-input {
+  height: 100px;
+  width: 99%;
+}
+
+.message-header {
+  border-bottom: thin solid black;
+  background-image: linear-gradient(to right, white , #ff9681);
+}
+
+.message-body {
+  font: 12pt;
+}
+
+.panel {
+  background-color: white;
+  margin-top: 20px;
+}
+
+.centered{
+  text-align: center;
+}
+
+.padded {
+  padding: 10px;
+>>>>>>> 75c3f2d... changed link coloring and general coloring as well
 }
 
 /* Keep navigation menu on one line. */
