@@ -41,6 +41,14 @@ public class MessageServlet extends HttpServlet {
           into <b> [ANYTHING OTHER THAN *s] </b>
     */
       text = text.replaceAll("\\*\\*([^\\*]*)\\*\\*", "<b>$1</b>");
+
+      /**
+      Regex for italicizing -- converts * [text] * 
+          <i> [text] </i>
+      */
+      text = text.replaceAll("\\*([^\\*]*)\\*", "<i>$1</i>");
+
+      text = text.replaceAll("_([^\\_]*)_", "<u>$1</u>");
       return text;
   }
 
@@ -90,8 +98,8 @@ public class MessageServlet extends HttpServlet {
     String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-        
-    Message message = new Message(user, textWithImagesReplaced);
+    String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
+    Message message = new Message(user,textWithImagesReplacedMarkdown);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
