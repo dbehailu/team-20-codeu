@@ -19,12 +19,20 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+#titleHeader {
+    font-family: "Titillium Web", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 10px;
+    color:#ff9681;
+  }
 
 body { 
   background:#eeeeee; 
   letter-spacing:.05em;
   margin:5em;
-  font-family:gotham rounded a,gotham rounded b,sans-serif;
+  font-family:"Titillium Web", sans-serif;
  }
 
 nav {
