@@ -19,17 +19,26 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+#titleHeader {
+    font-family: "Titillium Web", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 10px;
+    color:#ff9681;
+  }
 
 body { 
-  background:#ccc; 
+  background:#eeeeee; 
   letter-spacing:.05em;
   margin:5em;
-  font-family:gotham rounded a,gotham rounded b,sans-serif;
+  font-family:"Titillium Web", sans-serif;
  }
 
 nav {
 	text-align: center;
 	font-size: 1.25em;
+	min-width:400px;
   }	
 	
 nav ul {
@@ -44,28 +53,35 @@ nav li {
   display:inline-block; 
   border-bottom: none;
   border-radius: .25em .25em 0 0;
+  margin: 10px 10px 10px 10px;
   }
 
 
+
+
 nav a { 
-  color:#A6B1E1;
+  color:#ff9681;
   display:block;
   padding: .5em;  
   text-decoration:none;
   }
 
 nav a:hover {
-  background: #A6B1E1;
+  background: #ff9681;
   color:white;
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+  border-radius: .25em .25em .25em .25em;
   }
+
+a:visited {
+    color: #ff9681;
+}
 
 h2 {
   margin: 0;
 }
 
 input[type=submit] {
-  background-color: #A6B1E1;
+  background-color: #ff9681;
   border-radius: 20px;
   height: 50px;
   width: 100px;
@@ -86,7 +102,7 @@ input[type=submit] {
 
 .message-header {
   border-bottom: thin solid black;
-  background-image: linear-gradient(to right, white , #A6B1E1);
+  background-image: linear-gradient(to right, white , #ff9681);
 }
 
 .message-body {
@@ -115,3 +131,42 @@ input[type=submit] {
 .hidden {
   display: none;
 }
+
+.wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container{
+  position: relative;
+}
+
+.input{
+  width: 240px;
+  border: 2px solid #ff9681;
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 50px;
+  outline: none;
+  height: 100%;
+  font-size:18px;
+  color: #ff9681;
+}
+
+.close-btn{
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  cursor: pointer;
+  color: #eeeeee;
+  background: #ff9681;
+  border: 0px;
+  width: 30%;
+  height: 100%;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+}
+
