@@ -30,6 +30,7 @@ body {
 nav {
 	text-align: center;
 	font-size: 1.25em;
+	min-width:400px;
   }	
 	
 nav ul {
@@ -44,7 +45,10 @@ nav li {
   display:inline-block; 
   border-bottom: none;
   border-radius: .25em .25em 0 0;
+  margin: 10px 10px 10px 10px;
   }
+
+
 
 
 nav a { 
@@ -128,30 +132,30 @@ input[type=submit] {
 
 .container{
   position: relative;
-  padding: 20px 50px;
 }
 
 .input{
-  width: 400px;
+  width: 240px;
   border: 2px solid #ff9681;
   background: transparent;
   padding: 5px 10px;
   border-radius: 50px;
   outline: none;
-  font-size: 18px;
+  height: 100%;
+  font-size:18px;
   color: #ff9681;
 }
 
 .close-btn{
   position: absolute;
-  top: 21px;
-  right: 50px;
+  top: 0%;
+  right: 0%;
   cursor: pointer;
   color: #eeeeee;
   background: #ff9681;
   border: 0px;
-  width: 120px;
-  height: 32px;
+  width: 30%;
+  height: 100%;
   border-radius: 50px;
   outline: none;
   font-size: 18px;
