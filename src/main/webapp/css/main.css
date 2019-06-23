@@ -118,3 +118,42 @@ input[type=submit] {
 .hidden {
   display: none;
 }
+
+.wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container{
+  position: relative;
+  padding: 20px 50px;
+}
+
+.input{
+  width: 400px;
+  border: 2px solid #ff9681;
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+  color: #ff9681;
+}
+
+.close-btn{
+  position: absolute;
+  top: 21px;
+  right: 50px;
+  cursor: pointer;
+  color: #eeeeee;
+  background: #ff9681;
+  border: 0px;
+  width: 120px;
+  height: 32px;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+}
+
