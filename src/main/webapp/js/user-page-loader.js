@@ -124,9 +124,12 @@ function fetchSuggestion(){
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
+
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
   fetchSuggestion();
+  const config = {removePlugins: [ 'ImageUpload' ]};
+  ClassicEditor.create(document.getElementById('message-input'), config );
 }

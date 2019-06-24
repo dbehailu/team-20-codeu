@@ -26,8 +26,10 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
   <body onload="buildUI();">
+    <div id="content">
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
@@ -74,6 +76,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <!--<hr/>-->
 
     <div id="message-container">Loading...</div>
+  </div>
 
 
   </body>
