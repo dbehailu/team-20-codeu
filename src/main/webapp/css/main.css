@@ -24,7 +24,7 @@
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
-    letter-spacing: 10px;
+    letter-spacing: 0.3em;
     color:#ff9681;
   }
 
@@ -33,12 +33,12 @@ body {
   letter-spacing:.05em;
   margin:5em;
   font-family:"Titillium Web", sans-serif;
+  min-width:300px;
  }
 
 nav {
 	text-align: center;
 	font-size: 1.25em;
-	min-width:400px;
   }	
 	
 nav ul {
@@ -46,6 +46,7 @@ nav ul {
   text-align: center;
   border-radius: .25em;   
   background: white;
+  padding-inline-start:0px;
   }
 
 nav li { 
@@ -54,10 +55,7 @@ nav li {
   border-bottom: none;
   border-radius: .25em .25em 0 0;
   margin: 10px 10px 10px 10px;
-  }
-
-
-
+}
 
 nav a { 
   color:#ff9681;
@@ -155,7 +153,7 @@ input[type=submit] {
   color: #ff9681;
 }
 
-.close-btn{
+.submit-btn{
   position: absolute;
   top: 0%;
   right: 0%;
