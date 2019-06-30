@@ -21,6 +21,86 @@ limitations under the License.
     <script src="/js/navigation-loader.js"></script>
     <script>
 
+      function runQuery() {
+        const div = document.getElementById('message-container');
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
+        var query=document.getElementById('lostInput').value;
+
+        const url = '/feed';
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          const messageContainer = document.getElementById('message-container');
+          if(messages.length == 0){
+           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+           messageContainer.innerHTML = '';  
+          }
+          messages.forEach((message) => {  
+            if (message.text.indexOf(query) != -1) {
+              const messageDiv = buildSummaryDiv(message);
+              messageContainer.appendChild(messageDiv);
+            }
+           
+          });
+        });
+
+
+      }
+
+        // Fetch messages and add them to the page.
+      function fetchMessages(){
+        const url = '/feed';
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          const messageContainer = document.getElementById('message-container');
+          if(messages.length == 0){
+           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+           messageContainer.innerHTML = '';  
+          }
+          messages.forEach((message) => {  
+           const messageDiv = buildSummaryDiv(message);
+           messageContainer.appendChild(messageDiv);
+          });
+        });
+      }
+  
+      function buildSummaryDiv(message){
+         const usernameDiv = document.createElement('div');
+         usernameDiv.classList.add("left-align");
+         usernameDiv.appendChild(document.createTextNode(message.user));
+         
+         const timeDiv = document.createElement('div');
+         timeDiv.classList.add('right-align');
+         timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+         
+         const headerDiv = document.createElement('div');
+         headerDiv.classList.add('message-header');
+         headerDiv.appendChild(usernameDiv);
+         headerDiv.appendChild(timeDiv);
+
+        //placeholder
+          const bodyDiv = document.createElement('div');
+
+          bodyDiv.insertAdjacentHTML('beforeend', message.text);
+          bodyDiv.classList.add('message-body');
+         
+         
+         const messageDiv = document.createElement('div');
+         messageDiv.classList.add("message-div");
+         messageDiv.appendChild(headerDiv);
+         messageDiv.appendChild(bodyDiv);
+
+         
+         return messageDiv;
+      }
+
       /** Fetches users and adds them to the page. */
       function fetchUserList(){
         const url = '/user-list';
@@ -52,7 +132,8 @@ limitations under the License.
 
       /** Fetches data and populates the UI of the page. */
       function buildUI(){
-       fetchUserList();
+       // fetchUserList();
+       fetchMessages();
       }
     </script>
   </head>
@@ -64,17 +145,23 @@ limitations under the License.
         <li><a href="/">Home</a></li>
         <li><a href="/aboutus.html">About Our Team</a></li>
         <li>
-          <div class="container">
-            <input type="text" class="input" placeholder="What did you lose?">
-            <input type="button" value="search" class="submit-btn">
-          </div>
+          <form onsubmit="runQuery(); return false;" method="">
+            <div class="container">
+              <input id="lostInput" type="text" class="input" placeholder="What did you lose?">
+              <input type="submit" value="search" class="submit-btn">
+            </div>
+          </form>
+          
         </li>
       </ul>
     </nav>
 
     
     <div id="content">
-      <ul id="list">Loading...</ul>
+<!--       <ul id="list">Loading...</ul> -->
+      <div id="message-container" style="box-sizing:border-box">Loading...</div>
     </div>
+
+
   </body>
 </html>
