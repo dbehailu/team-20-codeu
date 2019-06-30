@@ -14,19 +14,157 @@
  * limitations under the License.
  */
 
-/* Prevent the page from becoming too wide. */
-body {
-  max-width: 600px;
-}
+/*body {
+  margin: 0;
+  background: linear-gradient(white, #ccccff) fixed;
+  font-family: sans-serif;
+}*/
+#titleHeader {
+    font-family: "Titillium Web", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.3em;
+    color:#ff9681;
+  }
 
-/* Remove bullet points from navigation bar. */
+body { 
+  background:#eeeeee; 
+  letter-spacing:.05em;
+  margin:5em;
+  font-family:"Titillium Web", sans-serif;
+  min-width:300px;
+ }
+
+nav {
+	text-align: center;
+	font-size: 1.25em;
+  }	
+	
 nav ul {
-  list-style-type: none;
-  padding-left: 0;
+  list-style:none;
+  text-align: center;
+  border-radius: .25em;   
+  background: white;
+  padding-inline-start:0px;
+  }
+
+nav li { 
+  position:relative; 
+  display:inline-block; 
+  border-bottom: none;
+  border-radius: .25em .25em 0 0;
+  margin: 10px 10px 10px 10px;
 }
 
-/* Keep navigation menu on one line. */
-nav li {
-  display: inline-block;
-  margin-right: 10px
+nav a { 
+  color:#ff9681;
+  display:block;
+  padding: .5em;  
+  text-decoration:none;
+  }
+
+nav a:hover {
+  background: #ff9681;
+  color:white;
+  border-radius: .25em .25em .25em .25em;
+  }
+
+a:visited {
+    color: #ff9681;
 }
+
+h2 {
+  margin: 0;
+}
+
+input[type=submit] {
+  background-color: #ff9681;
+  border-radius: 20px;
+  height: 50px;
+  width: 100px;
+  font-size: 14pt;
+}
+
+#content {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#message-input {
+  height: 100px;
+  width: 99%;
+}
+
+.message-header {
+  border-bottom: thin solid black;
+  background-image: linear-gradient(to right, white , #ff9681);
+}
+
+.message-body {
+  font: 12pt;
+}
+
+.panel {
+  background-color: white;
+  margin-top: 20px;
+}
+
+.centered{
+  text-align: center;
+}
+
+.padded {
+  padding: 10px;
+}
+
+.rounded {
+  border: thin solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container{
+  position: relative;
+}
+
+.input{
+  width: 240px;
+  border: 2px solid #ff9681;
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 50px;
+  outline: none;
+  height: 100%;
+  font-size:18px;
+  color: #ff9681;
+}
+
+.submit-btn{
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  cursor: pointer;
+  color: #eeeeee;
+  background: #ff9681;
+  border: 0px;
+  width: 30%;
+  height: 100%;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+}
+
