@@ -163,6 +163,6 @@ function buildUI() {
   fetchDescription();
   fetchLocation();
   fetchLostOrFound();
-  const config = {removePlugins: [ 'ImageUpload' ]};
-  ClassicEditor.create(document.getElementById('message-input'), config );
+  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
+  ClassicEditor.create(document.getElementById('message-input'));
 }
