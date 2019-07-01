@@ -17,8 +17,8 @@ import org.jsoup.safety.Whitelist;
 /**
  * Handles fetching and saving user data.
  */
-@WebServlet("/about")
-public class AboutMeServlet extends HttpServlet {
+@WebServlet("/title")
+public class TitleServlet extends HttpServlet {
 
   private Datastore datastore;
 
@@ -28,7 +28,7 @@ public class AboutMeServlet extends HttpServlet {
   }
 
   /**
-   * Responds with the "about me" section for a particular user.
+   * Responds with the "title" section for a particular user.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,11 +45,11 @@ public class AboutMeServlet extends HttpServlet {
 
     User userData = datastore.getUser(user);
 
-    if(userData == null || userData.getAboutMe() == null) {
+    if(userData == null || userData.getTitle() == null) {
       return;
     }
 
-    response.getOutputStream().println(userData.getAboutMe());
+    response.getOutputStream().println(userData.getTitle());
   }
 
   @Override
@@ -61,13 +61,24 @@ public class AboutMeServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
-
     String userEmail = userService.getCurrentUser().getEmail();
-    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.none());
-    String suggestion = datastore.getUser(userEmail).getSuggestion();
-    User user = new User(userEmail, aboutMe, suggestion);
-    datastore.storeUser(user);
+    User user = datastore.getUser(userEmail);
+    if(user==null){
+      String title = Jsoup.clean(request.getParameter("title"), Whitelist.none());
+      String description = "No description.";
+      String location = "No location.";
+      String lostOrFound = "No lost or found information.";
+      user = new User(userEmail, title, description, location, lostOrFound);
+      datastore.storeUser(user);
+    } else {
+      String title = Jsoup.clean(request.getParameter("title"), Whitelist.none());
+      String description = user.getDescription();
+      String location =  user.getLocation();
+      String lostOrFound = user.getLostOrFound();
+      user = new User(userEmail, title, description, location, lostOrFound);
+      datastore.storeUser(user);
+    }
 
-    response.sendRedirect("/user-page.html?user=" + userEmail);
+    response.sendRedirect("/user-page.jsp?user=" + userEmail);
   }
 }

@@ -17,8 +17,8 @@ import org.jsoup.safety.Whitelist;
 /**
  * Handles fetching and saving user data.
  */
-@WebServlet("/suggestion")
-public class SuggestionsServlet extends HttpServlet {
+@WebServlet("/description")
+public class DescriptionServlet extends HttpServlet {
 
   private Datastore datastore;
 
@@ -45,11 +45,11 @@ public class SuggestionsServlet extends HttpServlet {
 
   User userData = datastore.getUser(user);
 
-  if(userData == null || userData.getSuggestion() == null) {
+  if(userData == null || userData.getDescription() == null) {
     return;
   }
 
-  response.getOutputStream().println(userData.getSuggestion());
+  response.getOutputStream().println(userData.getDescription());
  }
 
  @Override
@@ -60,14 +60,29 @@ public class SuggestionsServlet extends HttpServlet {
   if (!userService.isUserLoggedIn()) {
    response.sendRedirect("/index.html");
    return;
-  }
+ }
 
-  String userEmail = userService.getCurrentUser().getEmail();
-  String aboutMe = datastore.getUser(userEmail).getAboutMe();
-  String suggestion = Jsoup.clean(request.getParameter("suggestion"), Whitelist.none());
-  User user = new User(userEmail, aboutMe, suggestion);
-  datastore.storeUser(user);
+ String userEmail = userService.getCurrentUser().getEmail();
+ User user = datastore.getUser(userEmail);
+ if(user==null){
+   String title = "No title.";
+   String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
+   String location = "No location.";
+   String lostOrFound = "No lost or found information.";
+   user = new User(userEmail, title, description, location, lostOrFound);
+   datastore.storeUser(user);
+ } else {
+   String title = user.getTitle();
+   String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
+   String location =  user.getLocation();
+   String lostOrFound = user.getLostOrFound();
+   user = new User(userEmail, title, description, location, lostOrFound);
+   datastore.storeUser(user);
+ }
 
-  response.sendRedirect("/user-page.html?user=" + userEmail);
+
+
+
+  response.sendRedirect("/user-page.jsp?user=" + userEmail);
  }
 }
