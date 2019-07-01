@@ -19,6 +19,11 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+
+.intro {
+    border-bottom: thin solid black;
+    background-image: linear-gradient(to right, white , #ff9681);
+}
 #titleHeader {
     font-family: "Titillium Web", sans-serif;
     text-transform: uppercase;
@@ -176,3 +181,17 @@ h2 {
   font-size: 18px;
 }
 
+#intro {
+    background: white;
+    border: #ff9681;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-style: double;
+}
+
+#actives {
+    padding: 1em;
+    border-color: white;
+    margin-bottom: 1em;
+    border-style: double;
+}
