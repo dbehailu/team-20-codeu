@@ -28,7 +28,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <script src="/js/user-page-loader.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
-  <body onload="buildUI();">
+  <body>
     <div id="content">
     <nav>
       <ul id="navigation">
@@ -37,7 +37,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
-
+<!-- 
     <div id="about-me-container">Loading...</div>
   <div id="about-me-form" class="hidden">
   <form action="/about" method="POST">
@@ -45,20 +45,30 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div>
+</div> -->
 
-<div id="suggestion-container">Loading...</div>
+<!-- <div id="suggestion-container">Loading...</div>
   <div id="suggestion-form" class="hidden">
   <form action="/suggestion" method="POST">
     <textarea name="suggestion" placeholder="suggestion" rows=4 required></textarea>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div>
+</div> -->
 
-    <form action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
-      <p>Type some text:</p>
-      <textarea name="message"></textarea>
+  <!-- <form id="message-form" action="/messages" method="POST" class="hidden">
+    Enter a new message:
+    <br/>
+    <textarea name="text" id="message-input"></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form> -->
+  <hr/>
+    <!-- <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data"> -->
+    <form id="message-form" action="/messages" method="POST" class="hidden"> 
+      Enter a new message:
+      <br/>
+      <textarea name="message" id="message-input"></textarea>
       <br/>
       <p>Upload an image:</p>
       <input type="file" name="image">
@@ -66,16 +76,19 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       <button>Submit</button>
     </form>
 
-    <!--<form id="message-form" action="/messages" method="POST" class="hidden">-->
-      <!--Enter a new message:-->
-      <!--<br/>-->
-      <!--<textarea name="text" id="message-input"></textarea>-->
-      <!--<br/>-->
-      <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
-    <!--<hr/>-->
+    
 
     <div id="message-container">Loading...</div>
+
+    <script>
+      setPageTitle();
+      showMessageFormIfViewingSelf();
+      fetchMessages();
+      fetchAboutMe();
+      fetchSuggestion();
+      /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
+      ClassicEditor.create(document.getElementById('message-input'));
+  </script>
   </div>
 
 

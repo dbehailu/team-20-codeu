@@ -44,8 +44,8 @@ function showMessageFormIfViewingSelf() {
           messageForm.classList.remove('hidden');
         }
       });
-      document.getElementById('about-me-form').classList.remove('hidden');
-      document.getElementById('suggestion-form').classList.remove('hidden');
+      // document.getElementById('about-me-form').classList.remove('hidden');
+      // document.getElementById('suggestion-form').classList.remove('hidden');
 }
 
 /** Fetches messages and add them to the page. */
@@ -91,6 +91,7 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
+
 
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
