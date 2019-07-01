@@ -199,3 +199,7 @@ h2 {
 .message-body img {
     width: 95%;
 }
+
+.first-page {
+  display: inline-block;
+}
