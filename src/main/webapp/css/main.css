@@ -195,3 +195,7 @@ h2 {
     margin-bottom: 1em;
     border-style: double;
 }
+
+.message-body img {
+    width: 95%;
+}
