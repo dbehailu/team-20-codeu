@@ -78,18 +78,19 @@ h2 {
   margin: 0;
 }
 
-input[type=submit] {
+/*input[type=submit] {
   background-color: #ff9681;
   border-radius: 20px;
   height: 50px;
   width: 100px;
   font-size: 14pt;
-}
+}*/
 
 #content {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+/*  display:inline-block;*/
 }
 
 
@@ -101,10 +102,16 @@ input[type=submit] {
 .message-header {
   border-bottom: thin solid black;
   background-image: linear-gradient(to right, white , #ff9681);
+  
 }
 
 .message-body {
   font: 12pt;
+  margin-bottom:1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  background-color:white;
 }
 
 .panel {

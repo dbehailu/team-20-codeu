@@ -130,6 +130,6 @@ function buildUI() {
   fetchMessages();
   fetchAboutMe();
   fetchSuggestion();
-  const config = {removePlugins: [ 'ImageUpload' ]};
-  ClassicEditor.create(document.getElementById('message-input'), config );
+  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
+  ClassicEditor.create(document.getElementById('message-input'));
 }
