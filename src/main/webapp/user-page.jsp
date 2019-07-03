@@ -70,9 +70,9 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       <br/>
       <textarea name="message" id="message-input"></textarea>
       <br/>
-      <p>Upload an image:</p>
+      <!-- <p>Upload an image:</p>
       <input type="file" name="image">
-      <br/><br/>
+      <br/><br/> -->
       <button>Submit</button>
     </form>
 
