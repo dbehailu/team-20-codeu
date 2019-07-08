@@ -44,8 +44,10 @@ function showMessageFormIfViewingSelf() {
           messageForm.classList.remove('hidden');
         }
       });
-      // document.getElementById('about-me-form').classList.remove('hidden');
-      // document.getElementById('suggestion-form').classList.remove('hidden');
+      document.getElementById('title-form').classList.remove('hidden');
+      document.getElementById('description-form').classList.remove('hidden');
+      document.getElementById('location-form').classList.remove('hidden');
+      document.getElementById('lostOrFound-form').classList.remove('hidden');
 }
 
 /** Fetches messages and add them to the page. */
@@ -93,32 +95,62 @@ function buildMessageDiv(message) {
 }
 
 
-function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
+
+function fetchTitle(){
+  const url = '/title?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
+  }).then((title) => {
+    const titleContainer = document.getElementById('title-container');
+    if(title == ''){
+      title = 'This user has not entered any information yet.';
     }
 
-    aboutMeContainer.innerHTML = aboutMe;
+    titleContainer.innerHTML = title;
 
   });
 }
 
-function fetchSuggestion(){
-  const url = '/suggestion?user=' + parameterUsername;
+function fetchDescription(){
+  const url = '/description?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((suggestion) => {
-    const suggestionContainer = document.getElementById('suggestion-container');
-    if(suggestion == ''){
-      suggestion = 'This user has not entered any information yet.';
+  }).then((description) => {
+    const descriptionContainer = document.getElementById('description-container');
+    if(description == ''){
+      description = 'This user has not entered any information yet.';
     }
 
-    suggestionContainer.innerHTML = suggestion;
+    descriptionContainer.innerHTML = description;
+
+  });
+}
+
+function fetchLocation(){
+  const url = '/location?user=' + parameterUsername;
+  fetch(url).then((response) => {
+    return response.text();
+  }).then((location) => {
+    const locationContainer = document.getElementById('location-container');
+    if(location == ''){
+      location = 'This user has not entered any information yet.';
+    }
+
+    locationContainer.innerHTML = location;
+
+  });
+}
+function fetchLostOrFound(){
+  const url = '/lostOrFound?user=' + parameterUsername;
+  fetch(url).then((response) => {
+    return response.text();
+  }).then((lostOrFound) => {
+    const lostOrFoundContainer = document.getElementById('lostOrFound-container');
+    if(lostOrFound == ''){
+      lostOrFound = 'This user has not entered any information yet.';
+    }
+
+    lostOrFoundContainer.innerHTML = lostOrFound;
 
   });
 }
@@ -129,8 +161,10 @@ function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
-  fetchAboutMe();
-  fetchSuggestion();
+  fetchTitle();
+  fetchDescription();
+  fetchLocation();
+  fetchLostOrFound();
   /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
   ClassicEditor.create(document.getElementById('message-input'));
 }

@@ -47,13 +47,13 @@ public class MessageServlet extends HttpServlet {
 
   public String basicMarkdown(String text) {
     /**
-    Regex converts anything matching ** [ANYTHING OTHER THAN *s] ** 
+    Regex converts anything matching ** [ANYTHING OTHER THAN *s] **
           into <b> [ANYTHING OTHER THAN *s] </b>
     */
       text = text.replaceAll("\\*\\*([^\\*]*)\\*\\*", "<b>$1</b>");
 
       /**
-      Regex for italicizing -- converts * [text] * 
+      Regex for italicizing -- converts * [text] *
           <i> [text] </i>
       */
       text = text.replaceAll("\\*([^\\*]*)\\*", "<i>$1</i>");

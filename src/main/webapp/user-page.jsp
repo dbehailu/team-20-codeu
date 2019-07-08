@@ -37,20 +37,37 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
-<!-- 
-    <div id="about-me-container">Loading...</div>
-  <div id="about-me-form" class="hidden">
-  <form action="/about" method="POST">
-    <textarea name="about-me" placeholder="about me" rows=4 required></textarea>
+
+    <div id="title-container">Loading...</div>
+  <div id="title-form" class="hidden">
+  <form action="/title" method="POST">
+    <textarea name="title" placeholder="title" rows=2 required></textarea>
     <br/>
     <input type="submit" value="Submit">
   </form>
 </div> -->
+<div id="description-container">Loading...</div>
+  <div id="description-form" class="hidden">
+  <form action="/description" method="POST">
+    <textarea name="description" placeholder="description" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 
-<!-- <div id="suggestion-container">Loading...</div>
-  <div id="suggestion-form" class="hidden">
-  <form action="/suggestion" method="POST">
-    <textarea name="suggestion" placeholder="suggestion" rows=4 required></textarea>
+<div id="location-container">Loading...</div>
+  <div id="location-form" class="hidden">
+  <form action="/location" method="POST">
+    <textarea name="location" placeholder="location" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<div id="lostOrFound-container">Loading...</div>
+  <div id="lostOrFound-form" class="hidden">
+  <form action="/lostOrFound" method="POST">
+    <textarea name="lostOrFound" placeholder="lostOrFound" rows=1 required></textarea>
     <br/>
     <input type="submit" value="Submit">
   </form>

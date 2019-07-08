@@ -139,8 +139,10 @@ public class Datastore {
 public void storeUser(User user) {
  Entity userEntity = new Entity("User", user.getEmail());
  userEntity.setProperty("email", user.getEmail());
- userEntity.setProperty("aboutMe", user.getAboutMe());
- userEntity.setProperty("suggestion", user.getSuggestion());
+ userEntity.setProperty("title", user.getTitle());
+ userEntity.setProperty("description", user.getDescription());
+ userEntity.setProperty("location", user.getLocation());
+ userEntity.setProperty("lostOrFound", user.getLostOrFound());
  datastore.put(userEntity);
 }
 
@@ -158,9 +160,11 @@ public User getUser(String email) {
   return null;
  }
 
- String aboutMe = (String) userEntity.getProperty("aboutMe");
- String suggestion = (String) userEntity.getProperty("suggestion");
- User user = new User(email, aboutMe, suggestion);
+ String title = (String) userEntity.getProperty("title");
+ String description = (String) userEntity.getProperty("description");
+ String location = (String) userEntity.getProperty("location");
+ String lostOrFound= (String) userEntity.getProperty("lostOrFound");
+ User user = new User(email, title, description, location, lostOrFound);
 
  return user;
 }

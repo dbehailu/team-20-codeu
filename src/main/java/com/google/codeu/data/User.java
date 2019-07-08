@@ -3,24 +3,49 @@ package com.google.codeu.data;
 public class User {
 
   private String email;
-  private String aboutMe;
-  private String suggestion;
+  private String title;
+  private String description;
+  private String location;
+  private String lostOrFound;
 
-  public User(String email, String aboutMe, String suggestion) {
+  public User(String email, String title, String description, String location, String lostOrFound) {
     this.email = email;
-    this.aboutMe = aboutMe;
-    this.suggestion = suggestion;
+    this.title = title;
+    this.description = description;
+    this.location = location;
+    this.lostOrFound = lostOrFound;
   }
 
   public String getEmail(){
     return email;
   }
 
-  public String getAboutMe() {
-    return aboutMe;
+  public String getTitle() {
+    return title;
   }
 
-  public String getSuggestion() {
-    return suggestion;
+  public String getDescription() {
+    return description;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public String getLostOrFound() {
+    return lostOrFound;
+  }
+
+
+  public void setEmail(String email){
+    this.email = email ;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
