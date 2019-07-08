@@ -28,7 +28,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <script src="/js/user-page-loader.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
-  <body onload="buildUI();">
+  <body>
     <div id="content">
     <nav>
       <ul id="navigation">
@@ -45,8 +45,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div>
-
+</div> -->
 <div id="description-container">Loading...</div>
   <div id="description-form" class="hidden">
   <form action="/description" method="POST">
@@ -72,28 +71,41 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div>
+</div> -->
 
-    <form action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
-      <p>Type some text:</p>
-      <textarea name="message"></textarea>
+  <!-- <form id="message-form" action="/messages" method="POST" class="hidden">
+    Enter a new message:
+    <br/>
+    <textarea name="text" id="message-input"></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form> -->
+  <hr/>
+    <!-- <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data"> -->
+    <form id="message-form" action="/messages" method="POST" class="hidden"> 
+      Enter a new message:
       <br/>
-      <p>Upload an image:</p>
+      <textarea name="message" id="message-input"></textarea>
+      <br/>
+      <!-- <p>Upload an image:</p>
       <input type="file" name="image">
-      <br/><br/>
+      <br/><br/> -->
       <button>Submit</button>
     </form>
 
-    <!--<form id="message-form" action="/messages" method="POST" class="hidden">-->
-      <!--Enter a new message:-->
-      <!--<br/>-->
-      <!--<textarea name="text" id="message-input"></textarea>-->
-      <!--<br/>-->
-      <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
-    <!--<hr/>-->
+    
 
     <div id="message-container">Loading...</div>
+
+    <script>
+      setPageTitle();
+      showMessageFormIfViewingSelf();
+      fetchMessages();
+      fetchAboutMe();
+      fetchSuggestion();
+      /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
+      ClassicEditor.create(document.getElementById('message-input'));
+  </script>
   </div>
 
 

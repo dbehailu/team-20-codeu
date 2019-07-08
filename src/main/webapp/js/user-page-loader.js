@@ -94,6 +94,8 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
+
+
 function fetchTitle(){
   const url = '/title?user=' + parameterUsername;
   fetch(url).then((response) => {
