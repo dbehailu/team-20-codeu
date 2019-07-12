@@ -99,7 +99,17 @@ public class MessageServlet extends HttpServlet {
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
     String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
-    Message message = new Message(user,textWithImagesReplacedMarkdown);
+
+    String title = Jsoup.clean(request.getParameter("title"),
+            Whitelist.relaxed());
+    String description = Jsoup.clean(request.getParameter("description"),
+            Whitelist.relaxed());
+    String location = Jsoup.clean(request.getParameter("location"),
+            Whitelist.relaxed());
+    String lostOrFound = Jsoup.clean(request.getParameter("lostOrFound"),
+            Whitelist.relaxed());
+    Message message = new Message(user,textWithImagesReplacedMarkdown, title,
+            description, location, lostOrFound);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.jsp?user=" + user);

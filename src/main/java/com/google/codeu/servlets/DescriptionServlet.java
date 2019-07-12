@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
 import com.google.codeu.data.User;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -28,61 +29,69 @@ public class DescriptionServlet extends HttpServlet {
  }
 
  /**
-  * Responds with the "about me" section for a particular user.
+  * Responds with the "about item" section for a particular user.
   */
  @Override
  public void doGet(HttpServletRequest request, HttpServletResponse response)
    throws IOException {
 
-  response.setContentType("text/html");
 
-  String user = request.getParameter("user");
+    response.setContentType("text/html");
 
-  if(user == null || user.equals("")) {
-   // Request is invalid, return empty response
-   return;
-  }
+    String m = request.getParameter("message");
 
-  User userData = datastore.getUser(user);
+    if(m == null || m.equals("")) {
+     // Request is invalid, return empty response
+     return;
+    }
 
-  if(userData == null || userData.getDescription() == null) {
-    return;
-  }
+    Message message = datastore.getMessage(m);
 
-  response.getOutputStream().println(userData.getDescription());
- }
+    if(message == null || message.getDescription() == null) {
+     return;
+    }
+
+    response.getOutputStream().println(message.getDescription());
+    }
 
  @Override
  public void doPost(HttpServletRequest request, HttpServletResponse response)
    throws IOException {
 
-  UserService userService = UserServiceFactory.getUserService();
-  if (!userService.isUserLoggedIn()) {
-   response.sendRedirect("/index.html");
-   return;
+ response.setContentType("text/html");
+
+ String m = request.getParameter("message");
+
+ if(m == null || m.equals("")) {
+     // Request is invalid, return empty response
+     return;
  }
 
- String userEmail = userService.getCurrentUser().getEmail();
- User user = datastore.getUser(userEmail);
- if(user==null){
+ Message message = datastore.getMessage(m);
+
+ if(message==null){
    String title = "No title.";
    String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
    String location = "No location.";
    String lostOrFound = "No lost or found information.";
-   user = new User(userEmail, title, description, location, lostOrFound);
-   datastore.storeUser(user);
+   String user = "No user.";
+   String text = "No text.";
+   message = new Message(user, text, title, description, location,
+             lostOrFound);
+     datastore.storeMessage(message);
  } else {
-   String title = user.getTitle();
+   String title = message.getTitle();
    String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
-   String location =  user.getLocation();
-   String lostOrFound = user.getLostOrFound();
-   user = new User(userEmail, title, description, location, lostOrFound);
-   datastore.storeUser(user);
+   String location =  message.getLocation();
+   String lostOrFound = message.getLostOrFound();
+   String user = message.getUser();
+   String text = message.getText();
+   message = new Message(user, text, title, description, location,
+             lostOrFound);
+   datastore.storeMessage(message);
  }
 
-
-
-
-  response.sendRedirect("/user-page.jsp?user=" + userEmail);
+     String title = message.getTitle();
+     response.sendRedirect("/item-page.jsp?message=" + title);
  }
 }

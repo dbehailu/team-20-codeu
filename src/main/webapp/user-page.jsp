@@ -16,7 +16,7 @@ limitations under the License.
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
+String uploadUrl = blobstoreService.createUploadUrl("/my-item-handler"); %>
 
 <!DOCTYPE html>
 <html>

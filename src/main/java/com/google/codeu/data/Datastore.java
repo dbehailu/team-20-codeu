@@ -55,6 +55,11 @@ public class Datastore {
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
 
+    messageEntity.setProperty("title", message.getTitle());
+    messageEntity.setProperty("description", message.getDescription());
+    messageEntity.setProperty("location", message.getLocation());
+    messageEntity.setProperty("lostOrFound", message.getLostOrFound());
+
     datastore.put(messageEntity);
   }
 
@@ -80,7 +85,13 @@ public class Datastore {
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
 
-        Message message = new Message(id, user, text, timestamp);
+        String title = (String) entity.getProperty("title");
+        String description = (String) entity.getProperty("description");
+        String location = (String) entity.getProperty("location");
+        String lostOrFound= (String) entity.getProperty("lostOrFound");
+
+        Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
+
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
@@ -116,7 +127,13 @@ public class Datastore {
       String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("timestamp");
 
-      Message message = new Message(id, user, text, timestamp);
+      String title = (String) entity.getProperty("title");
+      String description = (String) entity.getProperty("description");
+      String location = (String) entity.getProperty("location");
+      String lostOrFound= (String) entity.getProperty("lostOrFound");
+
+      Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
+
       messages.add(message);
      } catch (Exception e) {
       System.err.println("Error reading message.");
@@ -139,10 +156,6 @@ public class Datastore {
 public void storeUser(User user) {
  Entity userEntity = new Entity("User", user.getEmail());
  userEntity.setProperty("email", user.getEmail());
- userEntity.setProperty("title", user.getTitle());
- userEntity.setProperty("description", user.getDescription());
- userEntity.setProperty("location", user.getLocation());
- userEntity.setProperty("lostOrFound", user.getLostOrFound());
  datastore.put(userEntity);
 }
 
@@ -159,13 +172,39 @@ public User getUser(String email) {
  if(userEntity == null) {
   return null;
  }
-
- String title = (String) userEntity.getProperty("title");
- String description = (String) userEntity.getProperty("description");
- String location = (String) userEntity.getProperty("location");
- String lostOrFound= (String) userEntity.getProperty("lostOrFound");
- User user = new User(email, title, description, location, lostOrFound);
+ User user = new User(email);
 
  return user;
 }
+
+
+    /**
+     * Returns message, or
+     * null if no matching User was found.
+     */
+    public Message getMessage(String title) {
+
+        Query query = new Query("Message")
+                .setFilter(new Query.FilterPredicate("title",
+                        FilterOperator.EQUAL, title));
+        PreparedQuery results = datastore.prepare(query);
+        Entity messageEntity = results.asSingleEntity();
+        if(messageEntity == null) {
+            return null;
+        }
+
+        String idString = messageEntity.getKey().getName();
+        UUID id = UUID.fromString(idString);
+        String user = (String) messageEntity.getProperty("user");
+        String text = (String) messageEntity.getProperty("text");
+        long timestamp = (long) messageEntity.getProperty("timestamp");
+
+        String description = (String) messageEntity.getProperty("description");
+        String location = (String) messageEntity.getProperty("location");
+        String lostOrFound= (String) messageEntity.getProperty("lostOrFound");
+
+        Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
+
+        return message;
+    }
 }

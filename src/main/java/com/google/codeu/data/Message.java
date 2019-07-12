@@ -26,19 +26,35 @@ public class Message {
   private String text;
   private long timestamp;
 
+  private String title;
+  private String description;
+  private String location;
+  private String lostOrFound;
+
+
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-  public Message(String user, String text) {
-    this(UUID.randomUUID(), user, text, System.currentTimeMillis());
+  public Message(String user, String text, String title, String description,
+                 String location,
+                 String lostOrFound) {
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis(),
+            title, description, location, lostOrFound);
   }
 
-  public Message(UUID id, String user, String text, long timestamp) {
+  public Message(UUID id, String user, String text, long timestamp,
+                 String title, String description, String location,
+                 String lostOrFound) {
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
+
+    this.title = title;
+    this.description = description;
+    this.location = location;
+    this.lostOrFound = lostOrFound;
   }
 
   public UUID getId() {
@@ -55,5 +71,30 @@ public class Message {
 
   public long getTimestamp() {
     return timestamp;
+  }
+
+
+  public String getTitle() {
+    return title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public String getLostOrFound() {
+    return lostOrFound;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
