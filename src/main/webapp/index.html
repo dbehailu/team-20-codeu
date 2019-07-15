@@ -26,10 +26,18 @@ limitations under the License.
       function formatDate(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
+        if (hours < 12) {
+          ampm = "am";
+        } else {
+          ampm = "pm";
+        }
         hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
+        if (hours == 0) {
+          hours = 12;
+        } 
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
       }
@@ -40,9 +48,6 @@ limitations under the License.
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-        // var addDiv = document.createElement('div');
-        // addDiv.setAttribute('id', `message-container-0`);
-        // document.getElementById('lostDiv').appendChild(addDiv);
          messageContainer = document.getElementById(`message-container-0`);
         // messageContainer.classList.add('message-container');
         var query=document.getElementById('lostInput').value.toLowerCase();
@@ -51,29 +56,17 @@ limitations under the License.
         fetch(url).then((response) => {
           return response.json();
         }).then((messages) => {
-          // var counter = 0;
-          // var divCount = 0;
           if(messages.length == 0){
            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
           }
           else{
            messageContainer.innerHTML = '';  
           }
-          //var counter = 0;
           messages.forEach((message) => {  
             if (message.text.toLowerCase().indexOf(query) != -1) {
               const messageDiv = buildSummaryDiv(message);
-              // if (counter % 3 == 0 && counter != 0) {
-              //   divCount++;
-              //   var addDiv = document.createElement('div');
-              //   addDiv.setAttribute('id', `message-container-${divCount}`);
-              //   document.getElementById('lostDiv').appendChild(addDiv);
-                
-              // }
               messageContainer = document.getElementById(`message-container-0`);
-              //messageContainer.classList.add('message-container');
               messageContainer.appendChild(messageDiv);
-              //counter++;
               
             }
            
@@ -89,31 +82,6 @@ limitations under the License.
       }
   
       function buildSummaryDiv(message){
-        //  const usernameDiv = document.createElement('div');
-        //  usernameDiv.classList.add("left-align");
-        //  usernameDiv.appendChild(document.createTextNode(message.user));
-         
-        //  const timeDiv = document.createElement('div');
-        //  timeDiv.classList.add('right-align');
-        //  timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
-         
-        //  const headerDiv = document.createElement('div');
-        //  headerDiv.classList.add('message-header');
-        //  headerDiv.appendChild(usernameDiv);
-        //  headerDiv.appendChild(timeDiv);
-
-        // //placeholder
-        //   const bodyDiv = document.createElement('div');
-
-        //   bodyDiv.insertAdjacentHTML('beforeend', message.text);
-        //   bodyDiv.classList.add('message-body');
-         
-         
-        //  const messageDiv = document.createElement('div');
-        //  messageDiv.classList.add("message-div");
-        //  messageDiv.appendChild(headerDiv);
-        //  messageDiv.appendChild(bodyDiv);
-
         const cardWrap = document.createElement('div');
         cardWrap.classList.add("card-wrap");
         cardWrap.classList.add("hover");
@@ -138,13 +106,7 @@ limitations under the License.
          card.appendChild(timeDiv);
          card.appendChild(cardInfo);
 
-        // const back = document.createElement('div');
-        // back.classList.add("back");
-        // cardInfo.insertAdjacentHTML('beforeend', message.image);
-
          cardWrap.appendChild(card);
-         // cardWrap.appendChild(back);
-
          return cardWrap;
       }
 
@@ -219,23 +181,10 @@ limitations under the License.
 
     <div id="contentDiv">
 
-
-
-      <!-- <div   id = "intro">
-        placeholder
-      </div>
-
-       -->
-
       <div id="lostDiv">
-<!--         <h3 id="titleHeader">LOST ITEMS</h3> -->
         <div class = "message-container" id="message-container-0" style="box-sizing:border-box">Loading...</div>
       </div>
 
-      <!-- <div   id = "actives">Active Users:
-        <ul id="list">Loading...</ul>
-      </div> -->
-      
     </div>
 
 

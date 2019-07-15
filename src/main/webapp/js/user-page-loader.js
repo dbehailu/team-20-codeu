@@ -13,14 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
- function formatDate(date) {
+      function formatDate(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
+        if (hours < 12) {
+          ampm = "am";
+        } else {
+          ampm = "pm";
+        }
         hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
+        if (hours == 0) {
+          hours = 12;
+        } 
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
       }
