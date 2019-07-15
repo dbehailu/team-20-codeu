@@ -20,36 +20,17 @@ limitations under the License.
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <script src="/js/user-page-loader.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--     <script src="/js/text-to-speech.js"></script> -->
     <script>
-      function formatDate(date) {
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        if (hours < 12) {
-          ampm = "am";
-        } else {
-          ampm = "pm";
-        }
-        hours = hours % 12;
-        if (hours == 0) {
-          hours = 12;
-        } 
-        if (minutes < 10) {
-          minutes = '0' + minutes;
-        }
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
-      }
 
       function runQuery() {
-        //const div = document.getElementById('lostDiv');
         const div = document.getElementById('message-container-0');
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
          messageContainer = document.getElementById(`message-container-0`);
-        // messageContainer.classList.add('message-container');
         var query=document.getElementById('lostInput').value.toLowerCase();
 
         const url = '/feed';
@@ -81,34 +62,6 @@ limitations under the License.
         runQuery();
       }
   
-      function buildSummaryDiv(message){
-        const cardWrap = document.createElement('div');
-        cardWrap.classList.add("card-wrap");
-        cardWrap.classList.add("hover");
-
-        const card = document.createElement('div');
-         card.classList.add("card-lost");
-         
-         
-         const timeDiv = document.createElement('div');
-         timeDiv.classList.add('inner-wrapper');
-         timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
-         timeDiv.appendChild(document.createElement("br"));
-         timeDiv.appendChild(document.createElement("br"));
-         timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
-         var line = document.createElement("hr");
-         line.classList.add("line");
-         timeDiv.appendChild(line);
-
-         const cardInfo = document.createElement('div');
-         cardInfo.insertAdjacentHTML('beforeend', message.text);
-
-         card.appendChild(timeDiv);
-         card.appendChild(cardInfo);
-
-         cardWrap.appendChild(card);
-         return cardWrap;
-      }
 
       /** Fetches users and adds them to the page. */
       function fetchUserList(){
