@@ -45,7 +45,8 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div> -->
+</div>
+
 <div id="description-container">Loading...</div>
   <div id="description-form" class="hidden">
   <form action="/description" method="POST">
@@ -71,7 +72,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div> -->
+</div>
 
   <!-- <form id="message-form" action="/messages" method="POST" class="hidden">
     Enter a new message:
