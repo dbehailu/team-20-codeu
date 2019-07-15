@@ -105,9 +105,7 @@ function fetchTitle(){
     if(title == ''){
       title = 'This user has not entered any information yet.';
     }
-
     titleContainer.innerHTML = title;
-
   });
 }
 
@@ -120,9 +118,7 @@ function fetchDescription(){
     if(description == ''){
       description = 'This user has not entered any information yet.';
     }
-
     descriptionContainer.innerHTML = description;
-
   });
 }
 
@@ -135,11 +131,10 @@ function fetchLocation(){
     if(location == ''){
       location = 'This user has not entered any information yet.';
     }
-
     locationContainer.innerHTML = location;
-
   });
 }
+
 function fetchLostOrFound(){
   const url = '/lostOrFound?user=' + parameterUsername;
   fetch(url).then((response) => {
@@ -149,15 +144,12 @@ function fetchLostOrFound(){
     if(lostOrFound == ''){
       lostOrFound = 'This user has not entered any information yet.';
     }
-
     lostOrFoundContainer.innerHTML = lostOrFound;
-
   });
 }
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();

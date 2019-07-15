@@ -1,7 +1,7 @@
 package com.google.codeu.servlets;
 
 import java.io.IOException;
-
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,10 +45,10 @@ public class DescriptionServlet extends HttpServlet {
 
   User userData = datastore.getUser(user);
 
-  if(userData == null || userData.getDescription() == null) {
+  if(userData == null || userData.getDescription() == null || userData.getTitle() ==null || userData.getLocation() ==null
+  || userData.getLostOrFound() ==null) {
     return;
   }
-
   response.getOutputStream().println(userData.getDescription());
  }
 
@@ -62,23 +62,14 @@ public class DescriptionServlet extends HttpServlet {
    return;
  }
 
- String userEmail = userService.getCurrentUser().getEmail();
- User user = datastore.getUser(userEmail);
- if(user==null){
-   String title = "No title.";
+   String userEmail = userService.getCurrentUser().getEmail();
+
+   String title = Jsoup.clean(request.getParameter("title"), Whitelist.none());
    String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
-   String location = "No location.";
-   String lostOrFound = "No lost or found information.";
-   user = new User(userEmail, title, description, location, lostOrFound);
+   String location = Jsoup.clean(request.getParameter("location"), Whitelist.none());
+   String lostOrFound = Jsoup.clean(request.getParameter("lostOrFound"), Whitelist.none());
+   User user = new User(userEmail, title, description, location, lostOrFound);
    datastore.storeUser(user);
- } else {
-   String title = user.getTitle();
-   String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
-   String location =  user.getLocation();
-   String lostOrFound = user.getLostOrFound();
-   user = new User(userEmail, title, description, location, lostOrFound);
-   datastore.storeUser(user);
- }
 
 
 
