@@ -16,34 +16,65 @@ limitations under the License.
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Lost and Found</title>
+    <title>Waldo</title>
+    <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--     <script src="/js/text-to-speech.js"></script> -->
     <script>
+      function formatDate(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+      }
 
       function runQuery() {
-        const div = document.getElementById('message-container');
+        //const div = document.getElementById('lostDiv');
+        const div = document.getElementById('message-container-0');
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
+        // var addDiv = document.createElement('div');
+        // addDiv.setAttribute('id', `message-container-0`);
+        // document.getElementById('lostDiv').appendChild(addDiv);
+         messageContainer = document.getElementById(`message-container-0`);
+        // messageContainer.classList.add('message-container');
         var query=document.getElementById('lostInput').value.toLowerCase();
 
         const url = '/feed';
         fetch(url).then((response) => {
           return response.json();
         }).then((messages) => {
-          const messageContainer = document.getElementById('message-container');
+          // var counter = 0;
+          // var divCount = 0;
           if(messages.length == 0){
            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
           }
           else{
            messageContainer.innerHTML = '';  
           }
+          //var counter = 0;
           messages.forEach((message) => {  
             if (message.text.toLowerCase().indexOf(query) != -1) {
               const messageDiv = buildSummaryDiv(message);
+              // if (counter % 3 == 0 && counter != 0) {
+              //   divCount++;
+              //   var addDiv = document.createElement('div');
+              //   addDiv.setAttribute('id', `message-container-${divCount}`);
+              //   document.getElementById('lostDiv').appendChild(addDiv);
+                
+              // }
+              messageContainer = document.getElementById(`message-container-0`);
+              //messageContainer.classList.add('message-container');
               messageContainer.appendChild(messageDiv);
+              //counter++;
+              
             }
            
           });
@@ -54,52 +85,67 @@ limitations under the License.
 
         // Fetch messages and add them to the page.
       function fetchMessages(){
-        const url = '/feed';
-        fetch(url).then((response) => {
-          return response.json();
-        }).then((messages) => {
-          const messageContainer = document.getElementById('message-container');
-          if(messages.length == 0){
-           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
-          }
-          else{
-           messageContainer.innerHTML = '';  
-          }
-          messages.forEach((message) => {  
-           const messageDiv = buildSummaryDiv(message);
-           messageContainer.appendChild(messageDiv);
-          });
-        });
+        runQuery();
       }
   
       function buildSummaryDiv(message){
-         const usernameDiv = document.createElement('div');
-         usernameDiv.classList.add("left-align");
-         usernameDiv.appendChild(document.createTextNode(message.user));
+        //  const usernameDiv = document.createElement('div');
+        //  usernameDiv.classList.add("left-align");
+        //  usernameDiv.appendChild(document.createTextNode(message.user));
+         
+        //  const timeDiv = document.createElement('div');
+        //  timeDiv.classList.add('right-align');
+        //  timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+         
+        //  const headerDiv = document.createElement('div');
+        //  headerDiv.classList.add('message-header');
+        //  headerDiv.appendChild(usernameDiv);
+        //  headerDiv.appendChild(timeDiv);
+
+        // //placeholder
+        //   const bodyDiv = document.createElement('div');
+
+        //   bodyDiv.insertAdjacentHTML('beforeend', message.text);
+        //   bodyDiv.classList.add('message-body');
+         
+         
+        //  const messageDiv = document.createElement('div');
+        //  messageDiv.classList.add("message-div");
+        //  messageDiv.appendChild(headerDiv);
+        //  messageDiv.appendChild(bodyDiv);
+
+        const cardWrap = document.createElement('div');
+        cardWrap.classList.add("card-wrap");
+        cardWrap.classList.add("hover");
+
+        const card = document.createElement('div');
+         card.classList.add("card-lost");
+         
          
          const timeDiv = document.createElement('div');
-         timeDiv.classList.add('right-align');
-         timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
-         
-         const headerDiv = document.createElement('div');
-         headerDiv.classList.add('message-header');
-         headerDiv.appendChild(usernameDiv);
-         headerDiv.appendChild(timeDiv);
+         timeDiv.classList.add('inner-wrapper');
+         timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
+         var line = document.createElement("hr");
+         line.classList.add("line");
+         timeDiv.appendChild(line);
 
-        //placeholder
-          const bodyDiv = document.createElement('div');
+         const cardInfo = document.createElement('div');
+         cardInfo.insertAdjacentHTML('beforeend', message.text);
 
-          bodyDiv.insertAdjacentHTML('beforeend', message.text);
-          bodyDiv.classList.add('message-body');
-         
-         
-         const messageDiv = document.createElement('div');
-         messageDiv.classList.add("message-div");
-         messageDiv.appendChild(headerDiv);
-         messageDiv.appendChild(bodyDiv);
+         card.appendChild(timeDiv);
+         card.appendChild(cardInfo);
 
-         
-         return messageDiv;
+        // const back = document.createElement('div');
+        // back.classList.add("back");
+        // cardInfo.insertAdjacentHTML('beforeend', message.image);
+
+         cardWrap.appendChild(card);
+         // cardWrap.appendChild(back);
+
+         return cardWrap;
       }
 
       /** Fetches users and adds them to the page. */
@@ -133,23 +179,23 @@ limitations under the License.
 
       /** Fetches data and populates the UI of the page. */
       function buildUI(){
-       fetchUserList();
+       //fetchUserList();
        fetchMessages();
       }
     </script>
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation(); buildUI();">
-    <h1 id="titleHeader">LOST AND FOUND</h1>
+    <h1 id="titleHeader">WALDO</h1>
     <nav>
 
       <ul id="navigation">
         <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
+        <li><a href="/aboutus.html">About</a></li>
         <li>
           <form onsubmit="runQuery(); return false;" method="">
             <div class="container">
               <input id="lostInput" type="text" class="input" placeholder="What did you lose?">
-              <input type="submit" value="search" class="submit-btn">
+              <input type="submit" value="search" class="submit-btn btn btn-primary">
             </div>
           </form>
           
@@ -173,18 +219,22 @@ limitations under the License.
 
     <div id="contentDiv">
 
-      <div   id = "intro">Hi! Welcome to LOST AND FOUND. <br><br> We wanted to make an easy way for people to both find and post about found items, and thought that a location-based lost and found page would be quite useful. <br><br> Our user group is primarily college students, since people often lose water bottles, ID cards, etc. <br><br> Our webpage isn't super developed yet, and right now, we are only able to post messages via the user page (after you log in) and search via the navigation bar. We hope to enable image uploading and map pinning soon to ensure a seamless user experience. <br><br>For posting, first log into your Gmail account, then on your user page, copy paste a URL to the image and write a description. A couple of samples are provided below! <br><br> The search function also works, so search any terms and the page will refresh with any posts that match. If you want to see all the posts again after searching something, you can do an empty search.</div>
 
-      
+
+      <!-- <div   id = "intro">
+        placeholder
+      </div>
+
+       -->
 
       <div id="lostDiv">
 <!--         <h3 id="titleHeader">LOST ITEMS</h3> -->
-        <div id="message-container" style="box-sizing:border-box">Loading...</div>
+        <div class = "message-container" id="message-container-0" style="box-sizing:border-box">Loading...</div>
       </div>
 
-      <div   id = "actives">Active Users:
+      <!-- <div   id = "actives">Active Users:
         <ul id="list">Loading...</ul>
-      </div>
+      </div> -->
       
     </div>
 

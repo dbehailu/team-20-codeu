@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+ function formatDate(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+      }
+
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
@@ -25,7 +36,7 @@ if (!parameterUsername) {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('titleHeader').innerText = parameterUsername;
   document.title = parameterUsername + ' - User Page';
 }
 
@@ -52,23 +63,64 @@ function showMessageFormIfViewingSelf() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-  const url = '/messages?user=' + parameterUsername;
-  fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((messages) => {
-        const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
+  // const url = '/messages?user=' + parameterUsername;
+  // fetch(url)
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((messages) => {
+  //       const messagesContainer = document.getElementById('message-container');
+  //       if (messages.length == 0) {
+  //         messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
+  //       } else {
+  //         messagesContainer.innerHTML = '';
+  //       }
+  //       messages.forEach((message) => {
+  //         const messageDiv = buildMessageDiv(message);
+  //         messagesContainer.appendChild(messageDiv);
+  //       });
+  //     });
+  //const div = document.getElementById('lostDiv');
+        const div = document.getElementById('message-container');
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
         }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
+        // var addDiv = document.createElement('div');
+        // addDiv.setAttribute('id', `message-container-0`);
+        // document.getElementById('lostDiv').appendChild(addDiv);
+         messageContainer = document.getElementById(`message-container`);
+        // messageContainer.classList.add('message-container');
+
+        const url = '/messages?user=' + parameterUsername;
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          // var counter = 0;
+          // var divCount = 0;
+          if(messages.length == 0){
+           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+           messageContainer.innerHTML = '';  
+          }
+          //var counter = 0;
+          messages.forEach((message) => {  
+              const messageDiv = buildSummaryDiv(message);
+              // if (counter % 3 == 0 && counter != 0) {
+              //   divCount++;
+              //   var addDiv = document.createElement('div');
+              //   addDiv.setAttribute('id', `message-container-${divCount}`);
+              //   document.getElementById('lostDiv').appendChild(addDiv);
+                
+              // }
+              messageContainer = document.getElementById(`message-container`);
+              //messageContainer.classList.add('message-container');
+              messageContainer.appendChild(messageDiv);
+              //counter++;
+              
+           
+          });
         });
-      });
 }
 
 /**
@@ -93,7 +145,41 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
+      function buildSummaryDiv(message){
 
+        const cardWrap = document.createElement('div');
+        cardWrap.classList.add("card-wrap");
+        cardWrap.classList.add("hover");
+
+        const card = document.createElement('div');
+         card.classList.add("card-lost");
+         
+         
+         const timeDiv = document.createElement('div');
+         timeDiv.classList.add('inner-wrapper');
+         timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
+         var line = document.createElement("hr");
+         line.classList.add("line");
+         timeDiv.appendChild(line);
+
+         const cardInfo = document.createElement('div');
+         cardInfo.insertAdjacentHTML('beforeend', message.text);
+
+         card.appendChild(timeDiv);
+         card.appendChild(cardInfo);
+
+        // const back = document.createElement('div');
+        // back.classList.add("back");
+        // cardInfo.insertAdjacentHTML('beforeend', message.image);
+
+         cardWrap.appendChild(card);
+         // cardWrap.appendChild(back);
+
+         return cardWrap;
+      }
 
 
 function fetchTitle(){
