@@ -101,13 +101,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <div id="message-container">Loading...</div>
 
     <script>
-      setPageTitle();
-      showMessageFormIfViewingSelf();
-      fetchMessages();
-      fetchAboutMe();
-      fetchSuggestion();
-      /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
-      ClassicEditor.create(document.getElementById('message-input'));
+       buildUI();
   </script>
   </div>
 

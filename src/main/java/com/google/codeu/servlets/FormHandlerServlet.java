@@ -61,13 +61,13 @@ public class FormHandlerServlet extends HttpServlet {
         String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
         String replacement = "<img src=\"$1\" />";
         String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-        String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
+//        String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
         String imageUrl = getUploadedFileUrl(request, "image");
         if (imageUrl != null) {
             imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\">";
-            textWithImagesReplacedMarkdown=textWithImagesReplacedMarkdown+imageUrl;
+            textWithImagesReplaced=textWithImagesReplaced+imageUrl;
         }
-        Message message = new Message(user,textWithImagesReplacedMarkdown,imageUrl);
+        Message message = new Message(user,textWithImagesReplaced,imageUrl);
         datastore.storeMessage(message);
 
         response.sendRedirect("/user-page.jsp?user=" + user);
