@@ -63,26 +63,60 @@ function showMessageFormIfViewingSelf() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
+  // const url = '/messages?user=' + parameterUsername;
+  // fetch(url)
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((messages) => {
+  //       const messagesContainer = document.getElementById('message-container');
+  //       if (messages.length == 0) {
+  //         messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
+  //       } else {
+  //         messagesContainer.innerHTML = '';
+  //       }
+  //       messages.forEach((message) => {
+  //         const messageDiv = buildMessageDiv(message);
+  //         messagesContainer.appendChild(messageDiv);
+  //       });
+  //     });
+  //const div = document.getElementById('lostDiv');
         const div = document.getElementById('message-container');
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
+        // var addDiv = document.createElement('div');
+        // addDiv.setAttribute('id', `message-container-0`);
+        // document.getElementById('lostDiv').appendChild(addDiv);
          messageContainer = document.getElementById(`message-container`);
+        // messageContainer.classList.add('message-container');
 
         const url = '/messages?user=' + parameterUsername;
         fetch(url).then((response) => {
           return response.json();
         }).then((messages) => {
+          // var counter = 0;
+          // var divCount = 0;
           if(messages.length == 0){
            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
           }
           else{
            messageContainer.innerHTML = '';  
           }
+          //var counter = 0;
           messages.forEach((message) => {  
               const messageDiv = buildSummaryDiv(message);
+              // if (counter % 3 == 0 && counter != 0) {
+              //   divCount++;
+              //   var addDiv = document.createElement('div');
+              //   addDiv.setAttribute('id', `message-container-${divCount}`);
+              //   document.getElementById('lostDiv').appendChild(addDiv);
+                
+              // }
               messageContainer = document.getElementById(`message-container`);
+              //messageContainer.classList.add('message-container');
               messageContainer.appendChild(messageDiv);
+              //counter++;
               
            
           });
@@ -137,7 +171,12 @@ function buildMessageDiv(message) {
          card.appendChild(timeDiv);
          card.appendChild(cardInfo);
 
+        // const back = document.createElement('div');
+        // back.classList.add("back");
+        // cardInfo.insertAdjacentHTML('beforeend', message.image);
+
          cardWrap.appendChild(card);
+         // cardWrap.appendChild(back);
 
          return cardWrap;
       }
