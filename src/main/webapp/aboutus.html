@@ -18,8 +18,11 @@ limitations under the License.
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>About Us</title>
+    <title>About Waldo</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"> 
 
     <style>
     img {
@@ -29,40 +32,78 @@ limitations under the License.
     </style>
   </head>
   <body>
+    <h1 id="titleHeader">WALDO</h1>
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
+        <li><a href="/aboutus.html">About</a></li>
       </ul>
     </nav>
-    <h1>About Our Team</h1>
-    <h2>Sirinda Wongpanich<span style="font-weight:normal">, Junior at UC Berkeley</span></h2>
-    <img src="sirinda.png" hspace="25">
-    <ul>
-      <li>Summer Feelz: freedom, adventure, exploration</li>
-      <li>Aspirational Hobby: Filmmaking! I'd love to experience the entire process-- from screenwriting to editing and everything in between. </li>
-      <li>Ask me About: Good healthcare excites me. When I read about AI diagnoses or diverse clinical trials, I feel inspired by the steady progress. </li>
-    </ul>
-    <h2>Rebecca Wang<span style="font-weight:normal">, Rising junior at Smith College</span></h2>
-    <img src="rebecca.JPG" hspace="25">
-    <ul>
-      <li>Summer Feelz: adventure, learning, challenges</li>
-      <li>Aspirational Hobby: I always want to learn to fly a helicopter! </li>
-      <li>Ask me About: hiking! </li>
-    </ul>
-    <h2>Elaine Shyu<span style="font-weight:normal">, Sophomore at UCLA</span></h2>
-    <img src="elaine.png" style="width: 20%; height: 20%; margin: 0% 5%">
-    <ul>
-      <li>Summer Feelz: Digging into watermelon, working next to a fan in a cafe, walking on the beach at sunset (oddly specific... but what I think of when I hear summer!).</li>
-      <li>Aspirational Hobby: Photography! I want to get better at taking portraits of people and candids, but I find it really enjoyable.</li>
-      <li>Ask me About: Memes! I love drawing memes and putting them up for others to enjoy, and photoshopping people onto them for fun and for birthday gifts (if you want one, let me know :))!</li>
-    </ul>
-  <h2>Dagm Behailu, <span style="font-weight:normal">(Rising) Junior at Georgia Tech</span></h2>
-    <img src="dagm.jpg" hspace="25">
-    <ul>
-      <li>Summer Feelz: Trying, new, things </li>
-      <li>Aspirational Hobby: Traveling to different countries is definitely an expensive hobby for me! I've loved every country that I've gotten the chance to visit, but I would love to continue to see the beauty at every corner of the world.</li>
-      <li>Ask me About: Inspire children from underrepresented and under-resourced communities to pursue an career in STEM and show them out exciting it can be. </li>
-    </ul>
+    <h2 id = "aboutmeh2">Hi! Welcome to Waldo.</h2> 
+    <div class="card about hover">
+      <p>We wanted to make an easy way for people to both find and post about found items, and thought that a location-based lost and found page would be quite useful. <br><br> Our user group is primarily college students, since people often lose water bottles, ID cards, etc. <br><br> Our webpage isn't super developed yet, and right now, we are only able to post messages via the user page (after you log in) and search via the navigation bar. We hope to enable image uploading and map pinning soon to ensure a seamless user experience. <br><br>For posting, first log into your Gmail account, then on your user page, copy paste a URL to the image and write a description.<br><br> The search function also works, so search any terms and the page will refresh with any posts that match. If you want to see all the posts again after searching something, you can do an empty search.</p>
+    </div>
+    <h2 id = "aboutmeh2">About the Team</h2> 
+    <div id="aboutmediv">
+      <div class="card hover">
+        <div class="center">
+          <img src="sirinda.png">
+          </div>
+        <div class="inner-wrapper">
+          <h2 class="text-center"><b>Sirinda Wongpanich</b></h2> 
+          <p class="text-center">Rising Junior at UC Berkeley</p> 
+          <hr class="line"/>
+          <ul id="card-info">
+            <li><strong style="color:#ff9681;">Summer Feelz:</strong> freedom, adventure, exploration</li>
+            <li><strong style="color:#ff9681;">Aspirational Hobby:</strong> Filmmaking! I'd love to experience the entire process-- from screenwriting to editing and everything in between. </li>
+            <li><strong style="color:#ff9681;">Ask me About:</strong> Good healthcare excites me. When I read about AI diagnoses or diverse clinical trials, I feel inspired by the steady progress. </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card hover">
+        <div class="center">
+          <img src="rebecca.JPG">
+          </div>
+        <div class="inner-wrapper">
+          <h2 class="text-center"><b>Rebecca Wang</b></h2> 
+          <p class="text-center">Rising Junior at Smith College</p> 
+          <hr class="line"/>
+          <ul id="card-info">
+            <li><strong style="color:#ff9681;">Summer Feelz:</strong> adventure, learning, challenges</li>
+            <li><strong style="color:#ff9681;">Aspirational Hobby:</strong> I always want to learn to fly a helicopter! </li>
+            <li><strong style="color:#ff9681;">Ask me About:</strong> hiking! </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card hover">
+        <div class="center">
+          <img src="elaine.png">
+          </div>
+        <div class="inner-wrapper">
+          <h2 class="text-center"><b>Elaine Shyu</b></h2> 
+          <p class="text-center">Rising Junior at UCLA</p> 
+          <hr class="line"/>
+          <ul id="card-info">
+             <li><strong style="color:#ff9681;">Summer Feelz:</strong> Digging into watermelon, working next to a fan in a cafe, walking on the beach at sunset (oddly specific... but what I think of when I hear summer!).</li>
+            <li><strong style="color:#ff9681;">Aspirational Hobby:</strong> Photography! I want to get better at taking portraits of people and candids.</li>
+            <li><strong style="color:#ff9681;">Ask me About:</strong> Memes! I love drawing memes and putting them up for others to enjoy, and photoshopping people onto them for fun and for birthday gifts!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card hover">
+        <div class="center">
+          <img src="dagm.JPG">
+          </div>
+        <div class="inner-wrapper">
+          <h2 class="text-center"><b>Dagm Behailu</b></h2> 
+          <p class="text-center">Rising Junior at Georgia Tech</p> 
+          <hr class="line"/>
+          <ul id="card-info">
+             <li><strong style="color:#ff9681;">Summer Feelz:</strong> Trying, new, things </li>
+            <li><strong style="color:#ff9681;">Aspirational Hobby:</strong> Traveling to different countries is definitely an expensive hobby for me! I've loved every country that I've gotten the chance to visit, but I would love to continue to see the beauty at every corner of the world.</li>
+            <li><strong style="color:#ff9681;">Ask me About:</strong> Inspire children from underrepresented and under-resourced communities to pursue an career in STEM and show them out exciting it can be. </li>
+          </ul>
+        </div>
+      </div>
   </body>
 </html>

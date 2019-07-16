@@ -16,22 +16,130 @@ limitations under the License.
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>CodeU 2019 Starter Project</title>
+    <title>Waldo</title>
+    <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <script src="/js/user-page-loader.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--     <script src="/js/text-to-speech.js"></script> -->
+    <script>
+
+      function runQuery() {
+        const div = document.getElementById('message-container-0');
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
+         messageContainer = document.getElementById(`message-container-0`);
+        var query=document.getElementById('lostInput').value.toLowerCase();
+
+        const url = '/feed';
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          if(messages.length == 0){
+           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+           messageContainer.innerHTML = '';  
+          }
+          messages.forEach((message) => {  
+            if (message.text.toLowerCase().indexOf(query) != -1) {
+              const messageDiv = buildSummaryDiv(message);
+              messageContainer = document.getElementById(`message-container-0`);
+              messageContainer.appendChild(messageDiv);
+              
+            }
+           
+          });
+        });
+
+
+      }
+
+        // Fetch messages and add them to the page.
+      function fetchMessages(){
+        runQuery();
+      }
+  
+
+      /** Fetches users and adds them to the page. */
+      function fetchUserList(){
+        const url = '/user-list';
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((users) => {
+          const list = document.getElementById('list');
+          list.innerHTML = '';
+
+          users.forEach((user) => {
+           const userListItem = buildUserListItem(user);
+           list.appendChild(userListItem);
+          });
+        });
+      }
+
+      /**
+       * Builds a list element that contains a link to a user page, e.g.
+       * <li><a href="/user-page.html?user=test@example.com">test@example.com</a></li>
+       */
+      function buildUserListItem(user){
+        const userLink = document.createElement('a');
+        userLink.setAttribute('href', '/user-page.html?user=' + user);
+        userLink.appendChild(document.createTextNode(user));
+        const userListItem = document.createElement('li');
+        userListItem.appendChild(userLink);
+        return userListItem;
+      }
+
+      /** Fetches data and populates the UI of the page. */
+      function buildUI(){
+       //fetchUserList();
+       fetchMessages();
+      }
+    </script>
   </head>
-  <body onload="addLoginOrLogoutLinkToNavigation();">
+  <body onload="addLoginOrLogoutLinkToNavigation(); buildUI();">
+    <h1 id="titleHeader">WALDO</h1>
     <nav>
+
       <ul id="navigation">
         <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
+        <li><a href="/aboutus.html">About</a></li>
+        <li>
+          <form onsubmit="runQuery(); return false;" method="">
+            <div class="container">
+              <input id="lostInput" type="text" class="input" placeholder="What did you lose?">
+              <input type="submit" value="search" class="submit-btn btn btn-primary">
+            </div>
+          </form>
+          
+        </li>
       </ul>
     </nav>
-    <h1>CodeU Starter Project</h1>
-    <p>This is the CodeU starter project. Click the links above to login and visit your page.
-    You can post messages on your page, and you can visit other user pages if you have
-    their URL.</p>
-    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
-    You could start by modifying this page to tell the world more about your team.</p>
+
+<!--     <figure>
+      <figcaption>Try out Text-To-Speech:</figcaption>
+      <audio id="audio-" src=""></audio>
+      <button type="button" onclick="doTTS();">Play</button>
+
+      <p>
+        <label>Text Area</label>
+        <textarea id = "myText"
+                  rows = "3"
+                  cols = "80">Your text here
+        </textarea>
+      </p>
+    </figure> -->
+
+    <div id="contentDiv">
+
+      <div id="lostDiv">
+        <div class = "message-container" id="message-container-0" style="box-sizing:border-box">Loading...</div>
+      </div>
+
+    </div>
+
+
   </body>
 </html>

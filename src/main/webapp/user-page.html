@@ -22,8 +22,11 @@ limitations under the License.
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body onload="buildUI();">
+    <div id="content">
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
@@ -31,6 +34,24 @@ limitations under the License.
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
+<!-- 
+    <div id="about-me-container">Loading...</div>
+  <div id="about-me-form" class="hidden">
+  <form action="/about" method="POST">
+    <textarea name="about-me" placeholder="about me" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<div id="suggestion-container">Loading...</div>
+  <div id="suggestion-form" class="hidden">
+  <form action="/suggestion" method="POST">
+    <textarea name="suggestion" placeholder="suggestion" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div> -->
 
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
@@ -42,6 +63,8 @@ limitations under the License.
     <hr/>
 
     <div id="message-container">Loading...</div>
+  </div>
+
 
   </body>
 </html>

@@ -26,7 +26,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*; 
+import java.util.*;
 import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
@@ -92,10 +92,80 @@ public class Datastore {
     return messages;
   }
 
+
+
+   /**
+   * Gets messages posted by all users. (Encapsulated version)
+   *
+   * @return a list of messages posted by all users, or empty list if user has never posted a
+   *     message. List is sorted by time descending.
+   */
+
+  public List<Message> getAllMessages(){
+    List<Message> messages = new ArrayList<>();
+
+    Query query = new Query("Message")
+      .addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+     try {
+      String idString = entity.getKey().getName();
+      UUID id = UUID.fromString(idString);
+      String user = (String) entity.getProperty("user");
+      String text = (String) entity.getProperty("text");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Message message = new Message(id, user, text, timestamp);
+      messages.add(message);
+     } catch (Exception e) {
+      System.err.println("Error reading message.");
+      System.err.println(entity.toString());
+      e.printStackTrace();
+     }
+    }
+
+    return messages;
+   }
+
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
     return results.countEntities(FetchOptions.Builder.withLimit(1000));
   }
+
+  /** Stores the User in Datastore. */
+public void storeUser(User user) {
+ Entity userEntity = new Entity("User", user.getEmail());
+ userEntity.setProperty("email", user.getEmail());
+ userEntity.setProperty("title", user.getTitle());
+ userEntity.setProperty("description", user.getDescription());
+ userEntity.setProperty("location", user.getLocation());
+ userEntity.setProperty("lostOrFound", user.getLostOrFound());
+ datastore.put(userEntity);
+}
+
+/**
+ * Returns the User owned by the email address, or
+ * null if no matching User was found.
+ */
+public User getUser(String email) {
+
+ Query query = new Query("User")
+   .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
+ PreparedQuery results = datastore.prepare(query);
+ Entity userEntity = results.asSingleEntity();
+ if(userEntity == null) {
+  return null;
+ }
+
+ String title = (String) userEntity.getProperty("title");
+ String description = (String) userEntity.getProperty("description");
+ String location = (String) userEntity.getProperty("location");
+ String lostOrFound= (String) userEntity.getProperty("lostOrFound");
+ User user = new User(email, title, description, location, lostOrFound);
+
+ return user;
+}
 }

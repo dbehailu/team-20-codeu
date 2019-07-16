@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Tour</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYWpnhyR1LEDFMgQj_WFiaVoUkzjKnqWs"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <script>
+
+        let map;
+        /* Editable marker that displays when a user clicks in the map. */
+        let editMarker;
+
+        function createMap(){
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 37.422403, lng: -122.088073},
+            zoom: 15,
+            styles: [
+              {
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#ebe3cd"
+                  }
+                ]
+              },
+              {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#523735"
+                  }
+                ]
+              },
+              {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                  {
+                    "color": "#f5f1e6"
+                  }
+                ]
+              },
+              {
+                "featureType": "administrative",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                  {
+                    "color": "#c9b2a6"
+                  }
+                ]
+              },
+              {
+                "featureType": "administrative.land_parcel",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                  {
+                    "color": "#dcd2be"
+                  }
+                ]
+              },
+              {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#ae9e90"
+                  }
+                ]
+              },
+              {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#dfd2ae"
+                  }
+                ]
+              },
+              {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#dfd2ae"
+                  }
+                ]
+              },
+              {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#93817c"
+                  }
+                ]
+              },
+              {
+                "featureType": "poi.park",
+                "elementType": "geometry.fill",
+                "stylers": [
+                  {
+                    "color": "#a5b076"
+                  }
+                ]
+              },
+              {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#447530"
+                  }
+                ]
+              },
+              {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#f5f1e6"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.arterial",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#fdfcf8"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#f8c967"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                  {
+                    "color": "#e9bc62"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#e98d58"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                  {
+                    "color": "#db8555"
+                  }
+                ]
+              },
+              {
+                "featureType": "road.local",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#806b63"
+                  }
+                ]
+              },
+              {
+                "featureType": "transit.line",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#dfd2ae"
+                  }
+                ]
+              },
+              {
+                "featureType": "transit.line",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#8f7d77"
+                  }
+                ]
+              },
+              {
+                "featureType": "transit.line",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                  {
+                    "color": "#ebe3cd"
+                  }
+                ]
+              },
+              {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
+                  {
+                    "color": "#dfd2ae"
+                  }
+                ]
+              },
+              {
+                "featureType": "water",
+                "elementType": "geometry.fill",
+                "stylers": [
+                  {
+                    "color": "#b9d3c2"
+                  }
+                ]
+              },
+              {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                  {
+                    "color": "#92998d"
+                  }
+                ]
+              }
+            ]
+          });
+
+          addLandmark(map, 37.423829, -122.092154, 'Google West Campus', 'Google West Campus is home to YouTube and Maps.')
+          addLandmark(map, 37.421903, -122.084674, 'Stan the T-Rex', 'This is Stan, the T-Rex statue.')
+          addLandmark(map, 37.420919, -122.086619, 'Permanente Creek Trail', 'Permanente Creek Trail connects Google to a system of bike trails.');
+
+            // When the user clicks in the map, show a marker with a text box the user can edit.
+          map.addListener('click', (event) => {
+            createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
+          });
+          fetchMarkers();
+        }
+
+            /** Fetches markers from the backend and adds them to the map. */
+    function fetchMarkers(){
+      fetch('/markers').then((response) => {
+        return response.json();
+      }).then((markers) => {
+        markers.forEach((marker) => {
+         createMarkerForDisplay(marker.lat, marker.lng, marker.content)
+        });
+      });
+    }
+    /** Creates a marker that shows a read-only info window when clicked. */
+    function createMarkerForDisplay(lat, lng, content){
+      const marker = new google.maps.Marker({
+        position: {lat: lat, lng: lng},
+        map: map
+      });
+      var infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      });
+    }
+    /** Sends a marker to the backend for saving. */
+    function postMarker(lat, lng, content){
+      const params = new URLSearchParams();
+      params.append('lat', lat);
+      params.append('lng', lng);
+      params.append('content', content);
+      fetch('/markers', {
+        method: 'POST',
+        body: params
+      });
+    }
+    /** Creates a marker that shows a textbox the user can edit. */
+    function createMarkerForEdit(lat, lng){
+      // If we're already showing an editable marker, then remove it.
+      if(editMarker){
+       editMarker.setMap(null);
+      }
+      editMarker = new google.maps.Marker({
+        position: {lat: lat, lng: lng},
+        map: map
+      });
+      const infoWindow = new google.maps.InfoWindow({
+        content: buildInfoWindowInput(lat, lng)
+      });
+      // When the user closes the editable info window, remove the marker.
+      google.maps.event.addListener(infoWindow, 'closeclick', () => {
+        editMarker.setMap(null);
+      });
+      infoWindow.open(map, editMarker);
+    }
+    /** Builds and returns HTML elements that show an editable textbox and a submit button. */
+    function buildInfoWindowInput(lat, lng){
+      const textBox = document.createElement('textarea');
+      const button = document.createElement('button');
+      button.appendChild(document.createTextNode('Submit'));
+      button.onclick = () => {
+        postMarker(lat, lng, textBox.value);
+        createMarkerForDisplay(lat, lng, textBox.value);
+        editMarker.setMap(null);
+      };
+      const containerDiv = document.createElement('div');
+      containerDiv.appendChild(textBox);
+      containerDiv.appendChild(document.createElement('br'));
+      containerDiv.appendChild(button);
+      return containerDiv;
+    }
+
+    function addLandmark(map, lat, lng, title, description){
+      const marker = new google.maps.Marker({
+        position: {lat: lat, lng: lng},
+        map: map,
+        title: title
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: description
+      });
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
+
+
+      </script>
+
+      <style>
+        #map{
+          width: 500px;
+          height: 500px;
+          border: thin solid black;
+        }
+      </style>
+
+    </head>
+
+    <body onload="createMap();">
+        <nav>
+            <ul id="navigation">
+                <li><a href="/">Home</a></li>
+                <li><a href="/aboutus.html">About Our Team</a></li>
+            </ul>
+        </nav>
+
+        <h1>Google Tour</h1>
+        <p>Here are a few of my favorite places!</p>
+        <div id="map"></div>
+    </body>
+
+</html>
