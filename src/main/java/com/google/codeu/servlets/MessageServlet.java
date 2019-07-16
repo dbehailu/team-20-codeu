@@ -39,6 +39,8 @@ import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /** Handles fetching and saving {@link Message} instances. */
@@ -124,6 +126,16 @@ public class MessageServlet extends HttpServlet {
     String userText = Jsoup.clean(request.getParameter("message"), Whitelist.relaxed());    
     String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
     String replacement = "<img src=\"$1\" />";
+    // String replacement = "(hover over card to view image)";
+
+    // Pattern pattern = Pattern.compile("(.*)");
+    // String image = "";
+    // Matcher matcher = pattern.matcher(userText);
+    // if (matcher.find())
+    // {
+    //     image = "<img src=" + matcher.group(1) +  "/>";
+    // }
+    
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
     // String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
     Message message = new Message(user,textWithImagesReplaced);
