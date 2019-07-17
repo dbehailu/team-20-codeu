@@ -219,5 +219,6 @@ function buildUI() {
   fetchDescription();
   fetchLocation();
   fetchLostOrFound();
-  ClassicEditor.create(document.getElementById('message-input'));
+  const config = {removePlugins: [ "BlockQuote", "EasyImage", "Heading", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "MediaEmbed", "PasteFromOffice", "Table", "TableToolbar" ] };
+  ClassicEditor.create(document.getElementById('message-input'), config);
 }
