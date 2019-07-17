@@ -17,12 +17,20 @@
  function formatDate(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
+        if (hours < 12) {
+          ampm = "am";
+        } else {
+          ampm = "pm";
+        }
         hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        if (hours == 0) {
+          hours = 12;
+        }
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        var time = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + time;
       }
 
 // Get ?user=XYZ parameter value
@@ -63,33 +71,11 @@ function showMessageFormIfViewingSelf() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-  // const url = '/messages?user=' + parameterUsername;
-  // fetch(url)
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((messages) => {
-  //       const messagesContainer = document.getElementById('message-container');
-  //       if (messages.length == 0) {
-  //         messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-  //       } else {
-  //         messagesContainer.innerHTML = '';
-  //       }
-  //       messages.forEach((message) => {
-  //         const messageDiv = buildMessageDiv(message);
-  //         messagesContainer.appendChild(messageDiv);
-  //       });
-  //     });
-  //const div = document.getElementById('lostDiv');
         const div = document.getElementById('message-container');
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-        // var addDiv = document.createElement('div');
-        // addDiv.setAttribute('id', `message-container-0`);
-        // document.getElementById('lostDiv').appendChild(addDiv);
          messageContainer = document.getElementById(`message-container`);
-        // messageContainer.classList.add('message-container');
 
         const url = '/messages?user=' + parameterUsername;
         fetch(url).then((response) => {
@@ -103,22 +89,10 @@ function fetchMessages() {
           else{
            messageContainer.innerHTML = '';  
           }
-          //var counter = 0;
           messages.forEach((message) => {  
               const messageDiv = buildSummaryDiv(message);
-              // if (counter % 3 == 0 && counter != 0) {
-              //   divCount++;
-              //   var addDiv = document.createElement('div');
-              //   addDiv.setAttribute('id', `message-container-${divCount}`);
-              //   document.getElementById('lostDiv').appendChild(addDiv);
-                
-              // }
               messageContainer = document.getElementById(`message-container`);
-              //messageContainer.classList.add('message-container');
               messageContainer.appendChild(messageDiv);
-              //counter++;
-              
-           
           });
         });
 }
@@ -170,13 +144,7 @@ function buildMessageDiv(message) {
 
          card.appendChild(timeDiv);
          card.appendChild(cardInfo);
-
-        // const back = document.createElement('div');
-        // back.classList.add("back");
-        // cardInfo.insertAdjacentHTML('beforeend', message.image);
-
          cardWrap.appendChild(card);
-         // cardWrap.appendChild(back);
 
          return cardWrap;
       }
@@ -251,6 +219,5 @@ function buildUI() {
   fetchDescription();
   fetchLocation();
   fetchLostOrFound();
-  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
   ClassicEditor.create(document.getElementById('message-input'));
 }
