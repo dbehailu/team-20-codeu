@@ -161,14 +161,19 @@ limitations under the License.
           else{
            messageContainer.innerHTML = '';  
           }
+          var count = 0;
           messages.forEach((message) => {  
             if (message.text.toLowerCase().indexOf(query) != -1) {
+              count=1;
               const messageDiv = buildSummaryDiv(message);
               messageContainer = document.getElementById(`message-container-0`);
               messageContainer.appendChild(messageDiv);
             }
            
           });
+          if (count == 0) {
+            messageContainer.innerHTML = `<p>There are no posts yet for ${query}.</p>`;
+          }
         });
 
 
@@ -176,7 +181,23 @@ limitations under the License.
 
         // Fetch messages and add them to the page.
       function fetchMessages(){
-        runQuery();
+
+        const url = '/feed';
+          fetch(url).then((response) => {
+            return response.json();
+          }).then((messages) => {
+            const messageContainer = document.getElementById('message-container-0');
+            if(messages.length == 0){
+             messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+            }
+            else{
+             messageContainer.innerHTML = '';  
+            }
+            messages.forEach((message) => {  
+             const messageDiv = buildSummaryDiv(message);
+             messageContainer.appendChild(messageDiv);
+            });
+          });
       }
   
       function buildSummaryDiv(message){
