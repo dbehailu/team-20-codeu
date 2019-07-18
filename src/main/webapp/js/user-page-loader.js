@@ -14,6 +14,25 @@
  * limitations under the License.
  */
 
+ function formatDate(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        if (hours < 12) {
+          ampm = "am";
+        } else {
+          ampm = "pm";
+        }
+        hours = hours % 12;
+        if (hours == 0) {
+          hours = 12;
+        }
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        var time = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + time;
+      }
+
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
@@ -25,7 +44,7 @@ if (!parameterUsername) {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('titleHeader').innerText = parameterUsername;
   document.title = parameterUsername + ' - User Page';
 }
 
@@ -52,23 +71,30 @@ function showMessageFormIfViewingSelf() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-  const url = '/messages?user=' + parameterUsername;
-  fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((messages) => {
-        const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
+        const div = document.getElementById('message-container');
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
         }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
+         messageContainer = document.getElementById(`message-container`);
+
+        const url = '/messages?user=' + parameterUsername;
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          // var counter = 0;
+          // var divCount = 0;
+          if(messages.length == 0){
+           messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+           messageContainer.innerHTML = '';  
+          }
+          messages.forEach((message) => {  
+              const messageDiv = buildSummaryDiv(message);
+              messageContainer = document.getElementById(`message-container`);
+              messageContainer.appendChild(messageDiv);
+          });
         });
-      });
 }
 
 /**
@@ -93,7 +119,35 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
+      function buildSummaryDiv(message){
 
+        const cardWrap = document.createElement('div');
+        cardWrap.classList.add("card-wrap");
+        cardWrap.classList.add("hover");
+
+        const card = document.createElement('div');
+         card.classList.add("card-lost");
+         
+         
+         const timeDiv = document.createElement('div');
+         timeDiv.classList.add('inner-wrapper');
+         timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("br"));
+         timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
+         var line = document.createElement("hr");
+         line.classList.add("line");
+         timeDiv.appendChild(line);
+
+         const cardInfo = document.createElement('div');
+         cardInfo.insertAdjacentHTML('beforeend', message.text);
+
+         card.appendChild(timeDiv);
+         card.appendChild(cardInfo);
+         cardWrap.appendChild(card);
+
+         return cardWrap;
+      }
 
 
 function fetchTitle(){
@@ -157,6 +211,6 @@ function buildUI() {
   fetchDescription();
   fetchLocation();
   fetchLostOrFound();
-  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
-  ClassicEditor.create(document.getElementById('message-input'));
+  const config = {removePlugins: [ "BlockQuote", "EasyImage", "Heading", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "MediaEmbed", "PasteFromOffice", "Table", "TableToolbar" ] };
+  ClassicEditor.create(document.getElementById('message-input'), config);
 }

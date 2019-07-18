@@ -36,7 +36,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
         <li><a href="/aboutus.html">About Our Team</a></li>
       </ul>
     </nav>
-    <h1 id="page-title">User Page</h1>
+    <h1 id="titleHeader">User Page</h1>
 
 <form action="/description" method="POST">
     <div id="title-container">Loading...</div>
@@ -78,26 +78,26 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <input type="submit" value="Submit">
   </form> -->
   <hr/>
-    <!-- <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data"> -->
-    <form id="message-form" action="/messages" method="POST" class="hidden">
+
+  <!-- <form id="message-form" action="/messages" method="POST" class="hidden"> -->
+
+    <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
       Enter a new message:
       <br/>
-      <textarea name="message" id="message-input"></textarea>
+      <textarea name="text" id="message-input"></textarea>
       <br/>
-      <!-- <p>Upload an image:</p>
+      <p>Upload an image:</p>
       <input type="file" name="image">
-      <br/><br/> -->
+      <br/><br/>
       <button>Submit</button>
     </form>
 
 
 
-    <div id="message-container">Loading...</div>
+    <div id="message-container" class="message-container">Loading...</div>
 
     <script>
       buildUI();
-      /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
-      ClassicEditor.create(document.getElementById('message-input'));
   </script>
   </div>
 
