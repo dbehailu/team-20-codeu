@@ -21,7 +21,6 @@ limitations under the License.
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<!--     <script src="/js/text-to-speech.js"></script> -->
     <script>
        function formatDate(date) {
         var hours = date.getHours();
@@ -45,13 +44,11 @@ limitations under the License.
       }
 
       function runQuery() {
-        //const div = document.getElementById('lostDiv');
         const div = document.getElementById('message-container-0');
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
          messageContainer = document.getElementById(`message-container-0`);
-        // messageContainer.classList.add('message-container');
         var query=document.getElementById('lostInput').value.toLowerCase();
 
         const url = '/feed';
