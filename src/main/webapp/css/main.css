@@ -19,6 +19,11 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+#map{
+      width: 500px;
+      height: 500px;
+    }
+    
 .autocomplete-items {
   position: absolute;
   z-index: 99;
