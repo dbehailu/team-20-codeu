@@ -27,11 +27,13 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"> 
   </head>
   <body>
     <div id="content">
     <nav>
-      <ul id="navigation">
+      <ul id="navigation" class="down">
         <li><a href="/">Home</a></li>
         <li><a href="/aboutus.html">About Our Team</a></li>
       </ul>

@@ -19,6 +19,9 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+.down {
+  margin-top:5em;
+}
 img {
   width: 100%;
 }
