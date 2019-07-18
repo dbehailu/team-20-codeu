@@ -145,10 +145,10 @@ body {
  }
 
 nav {
-	text-align: center;
-	font-size: 1.25em;
-  }	
-	
+  text-align: center;
+  font-size: 1.25em;
+  } 
+  
 nav ul {
   list-style:none;
   text-align: center;

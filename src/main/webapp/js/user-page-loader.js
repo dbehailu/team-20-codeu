@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-      function formatDate(date) {
+
+ function formatDate(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
         if (hours < 12) {
@@ -24,12 +25,12 @@
         hours = hours % 12;
         if (hours == 0) {
           hours = 12;
-        } 
+        }
         if (minutes < 10) {
           minutes = '0' + minutes;
         }
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        var time = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + time;
       }
 
 // Get ?user=XYZ parameter value
@@ -80,6 +81,8 @@ function fetchMessages() {
         fetch(url).then((response) => {
           return response.json();
         }).then((messages) => {
+          // var counter = 0;
+          // var divCount = 0;
           if(messages.length == 0){
            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
           }
@@ -90,8 +93,6 @@ function fetchMessages() {
               const messageDiv = buildSummaryDiv(message);
               messageContainer = document.getElementById(`message-container`);
               messageContainer.appendChild(messageDiv);
-              
-           
           });
         });
 }
@@ -143,7 +144,6 @@ function buildMessageDiv(message) {
 
          card.appendChild(timeDiv);
          card.appendChild(cardInfo);
-
          cardWrap.appendChild(card);
 
          return cardWrap;
@@ -219,6 +219,6 @@ function buildUI() {
   fetchDescription();
   fetchLocation();
   fetchLostOrFound();
-  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
-  ClassicEditor.create(document.getElementById('message-input'));
+  const config = {removePlugins: [ "BlockQuote", "EasyImage", "Heading", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "MediaEmbed", "PasteFromOffice", "Table", "TableToolbar" ] };
+  ClassicEditor.create(document.getElementById('message-input'), config);
 }
