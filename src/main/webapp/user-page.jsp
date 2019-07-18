@@ -39,28 +39,28 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <h1 id="titleHeader">User Page</h1>
 
 <form action="/description" method="POST">
-    <div id="title-container">Loading...</div>
+    <div id="title-container">This user has not entered any information yet.</div>
   <div id="title-form" class="hidden">
 
     <textarea name="title" placeholder="title" rows=2 required></textarea>
     <br/>
   </div>
 
-<div id="description-container">Loading...</div>
+<div id="description-container">This user has not entered any information yet.</div>
   <div id="description-form" class="hidden">
     <textarea name="description" placeholder="description" rows=4 required></textarea>
     <br/>
 
   </div>
 
-<div id="location-container">Loading...</div>
+<div id="location-container">This user has not entered any information yet.</div>
   <div id="location-form" class="hidden">
     <textarea name="location" placeholder="location" rows=4 required></textarea>
     <br/>
 
 </div>
 
-<div id="lostOrFound-container">Loading...</div>
+<div id="lostOrFound-container">This user has not entered any information yet.</div>
   <div id="lostOrFound-form" class="hidden">
     <textarea name="lostOrFound" placeholder="lostOrFound" rows=1 required></textarea>
     <br/>

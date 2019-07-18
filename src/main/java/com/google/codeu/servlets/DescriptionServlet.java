@@ -49,7 +49,11 @@ public class DescriptionServlet extends HttpServlet {
   || userData.getLostOrFound() ==null) {
     return;
   }
-  response.getOutputStream().println(userData.getDescription());
+
+  Gson gson = new Gson();
+  String json = gson.toJson(userData);
+
+  response.getOutputStream().println(json);
  }
 
  @Override
