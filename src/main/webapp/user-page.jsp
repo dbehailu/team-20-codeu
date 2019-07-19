@@ -32,8 +32,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"> 
   </head>
   <body>
-    <div id="content">
-      <h1 id="titleHeader"><a href="/">WALDO</a></h1>
+    <h1 id="titleHeader"><a href="/">WALDO</a></h1>
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
@@ -41,6 +40,8 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
         <li><a href="/ranking.html">Rankings</a></li>
       </ul>
     </nav>
+    <div id="content">
+      
     <h2 id = "aboutmeh2" class="userpage">User Page</h2> 
 
     <div id="title-container">Loading...</div>
