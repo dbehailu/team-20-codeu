@@ -61,12 +61,13 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
+          document.getElementById('title-form').classList.remove('hidden');
+          document.getElementById('description-form').classList.remove('hidden');
+          document.getElementById('location-form').classList.remove('hidden');
+          document.getElementById('lostOrFound-form').classList.remove('hidden');
         }
       });
-      document.getElementById('title-form').classList.remove('hidden');
-      document.getElementById('description-form').classList.remove('hidden');
-      document.getElementById('location-form').classList.remove('hidden');
-      document.getElementById('lostOrFound-form').classList.remove('hidden');
+    
 }
 
 /** Fetches messages and add them to the page. */

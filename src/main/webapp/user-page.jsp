@@ -92,7 +92,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
 
   <!-- <form id="message-form" action="/messages" method="POST" class="hidden"> -->
 
-    <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
+    <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data" class="hidden">
       Enter a new message:
       <br/>
       <textarea name="text" id="message-input"></textarea>
