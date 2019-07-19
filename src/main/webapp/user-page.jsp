@@ -43,6 +43,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <div id="content">
       
     <h2 id = "aboutmeh2" class="userpage">User Page</h2> 
+    <hr/>
 
     <div id="title-container">Loading...</div>
   <div id="title-form" class="hidden">
