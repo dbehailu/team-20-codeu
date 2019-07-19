@@ -38,41 +38,37 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     </nav>
     <h1 id="titleHeader">User Page</h1>
 
-    <div id="title-container">Loading...</div>
+<form action="/description" method="POST">
+    <div id="title-container">This user has not entered any information yet.</div>
   <div id="title-form" class="hidden">
-  <form action="/title" method="POST">
+
     <textarea name="title" placeholder="title" rows=2 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div> 
+  </div>
 
-<div id="description-container">Loading...</div>
+<div id="description-container">This user has not entered any information yet.</div>
   <div id="description-form" class="hidden">
-  <form action="/description" method="POST">
     <textarea name="description" placeholder="description" rows=4 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div>
 
-<div id="location-container">Loading...</div>
+  </div>
+
+<div id="location-container">This user has not entered any information yet.</div>
   <div id="location-form" class="hidden">
-  <form action="/location" method="POST">
     <textarea name="location" placeholder="location" rows=4 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
+
 </div>
 
-<div id="lostOrFound-container">Loading...</div>
+<div id="lostOrFound-container">This user has not entered any information yet.</div>
   <div id="lostOrFound-form" class="hidden">
-  <form action="/lostOrFound" method="POST">
     <textarea name="lostOrFound" placeholder="lostOrFound" rows=1 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div> 
+
+
+</div>
+<input type="submit" value="Submit">
+</form>
 
   <!-- <form id="message-form" action="/messages" method="POST" class="hidden">
     Enter a new message:
@@ -96,7 +92,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       <button>Submit</button>
     </form>
 
-    
+
 
     <div id="message-container" class="message-container">Loading...</div>
 

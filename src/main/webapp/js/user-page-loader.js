@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
  function formatDate(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -87,9 +88,9 @@ function fetchMessages() {
            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
           }
           else{
-           messageContainer.innerHTML = '';  
+           messageContainer.innerHTML = '';
           }
-          messages.forEach((message) => {  
+          messages.forEach((message) => {
               const messageDiv = buildSummaryDiv(message);
               messageContainer = document.getElementById(`message-container`);
               messageContainer.appendChild(messageDiv);
@@ -127,8 +128,8 @@ function buildMessageDiv(message) {
 
         const card = document.createElement('div');
          card.classList.add("card-lost");
-         
-         
+
+
          const timeDiv = document.createElement('div');
          timeDiv.classList.add('inner-wrapper');
          timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
@@ -151,17 +152,16 @@ function buildMessageDiv(message) {
 
 
 function fetchTitle(){
-  const url = '/title?user=' + parameterUsername;
+  const url = '/description?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((title) => {
+  }).then((user) => {
+    let title = JSON.parse(user).title;
     const titleContainer = document.getElementById('title-container');
     if(title == ''){
       title = 'This user has not entered any information yet.';
     }
-
     titleContainer.innerHTML = title;
-
   });
 }
 
@@ -169,49 +169,46 @@ function fetchDescription(){
   const url = '/description?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((description) => {
+  }).then((user) => {
+    let description = JSON.parse(user).description;
     const descriptionContainer = document.getElementById('description-container');
     if(description == ''){
       description = 'This user has not entered any information yet.';
     }
-
     descriptionContainer.innerHTML = description;
-
   });
 }
 
 function fetchLocation(){
-  const url = '/location?user=' + parameterUsername;
+  const url = '/description?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((location) => {
+  }).then((user) => {
+    let location = JSON.parse(user).location;
     const locationContainer = document.getElementById('location-container');
     if(location == ''){
       location = 'This user has not entered any information yet.';
     }
-
     locationContainer.innerHTML = location;
-
   });
 }
+
 function fetchLostOrFound(){
-  const url = '/lostOrFound?user=' + parameterUsername;
+  const url = '/description?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
-  }).then((lostOrFound) => {
+  }).then((user) => {
+    let lostOrFound = JSON.parse(user).lostOrFound;
     const lostOrFoundContainer = document.getElementById('lostOrFound-container');
     if(lostOrFound == ''){
       lostOrFound = 'This user has not entered any information yet.';
     }
-
     lostOrFoundContainer.innerHTML = lostOrFound;
-
   });
 }
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
