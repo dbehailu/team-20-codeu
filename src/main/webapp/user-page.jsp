@@ -37,7 +37,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
         <li><a href="/aboutus.html">About</a></li>
-        <li><a href="/ranking.html">Rankings</a></li>
+        <li><a href="/contributions.html">Contributions</a></li>
       </ul>
     </nav>
     <div id="content">
