@@ -267,12 +267,13 @@ limitations under the License.
     </script>
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation(); buildUI();">
-    <h1 id="titleHeader">WALDO</h1>
+    <h1 id="titleHeader"><a href="/">WALDO</a></h1>
     <nav>
 
       <ul id="navigation">
-        <li><a href="/">Home</a></li>
+        <li><a id="homebutton" href="/">Home</a></li>
         <li><a href="/aboutus.html">About</a></li>
+        <li><a href="/ranking.html">Rankings</a></li>
         <li>
           <form onsubmit="runQuery(); return false;" method="">
             <div class="container">

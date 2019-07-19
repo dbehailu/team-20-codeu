@@ -19,6 +19,23 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+
+h2 {
+  font-weight: none !important;
+}
+h1 > a:hover {
+  color: #ff9681 !important;
+
+}
+
+a:link{
+  text-decoration: none!important;
+}
+
+table, th, td {
+  border: 1px #ff9681;
+}
+
 .autocomplete-items {
   position: absolute;
   z-index: 99;
