@@ -1,7 +1,7 @@
 package com.google.codeu.servlets;
 
 import java.io.IOException;
-
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +45,7 @@ public class DescriptionServlet extends HttpServlet {
      return;
     }
 
+<<<<<<< HEAD
     Message message = datastore.getMessage(m);
 
     if(message == null || message.getDescription() == null) {
@@ -53,6 +54,18 @@ public class DescriptionServlet extends HttpServlet {
 
     response.getOutputStream().println(message.getDescription());
     }
+=======
+  if(userData == null || userData.getDescription() == null || userData.getTitle() ==null || userData.getLocation() ==null
+  || userData.getLostOrFound() ==null) {
+    return;
+  }
+
+  Gson gson = new Gson();
+  String json = gson.toJson(userData);
+
+  response.getOutputStream().println(json);
+ }
+>>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
 
  @Override
  public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -67,6 +80,7 @@ public class DescriptionServlet extends HttpServlet {
      return;
  }
 
+<<<<<<< HEAD
  Message message = datastore.getMessage(m);
 
  if(message==null){
@@ -90,6 +104,16 @@ public class DescriptionServlet extends HttpServlet {
              lostOrFound);
    datastore.storeMessage(message);
  }
+=======
+   String userEmail = userService.getCurrentUser().getEmail();
+
+   String title = Jsoup.clean(request.getParameter("title"), Whitelist.none());
+   String description = Jsoup.clean(request.getParameter("description"), Whitelist.none());
+   String location = Jsoup.clean(request.getParameter("location"), Whitelist.none());
+   String lostOrFound = Jsoup.clean(request.getParameter("lostOrFound"), Whitelist.none());
+   User user = new User(userEmail, title, description, location, lostOrFound);
+   datastore.storeUser(user);
+>>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
 
      String title = message.getTitle();
      response.sendRedirect("/item-page.jsp?message=" + title);

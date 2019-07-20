@@ -19,6 +19,111 @@
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
 }*/
+
+img {
+  width: 100%;
+}
+
+.card-wrap {
+  margin:auto;
+  width:23%;
+    margin-top:40px;
+    padding-top:20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 #ff9681; 
+    border-radius: 5px; 
+    word-wrap: break-word;
+    height:20em;
+    overflow-y: scroll;
+}
+.message-container {
+    display: flex;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.hover {
+  transition: 0.4s;
+  padding: 2rem;
+}
+.hover:hover, .hover:focus {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+
+
+#aboutmeh2{
+  color:#ff9681;
+  text-align: center;
+  margin-top:2em;
+}
+
+#card-info {
+  margin-right:1em;
+  margin-bottom:1em;
+  font-size:1.2em;
+}
+
+#aboutmediv {
+  display:flex;
+  margin-left: 1em;
+  margin-right:1em;
+  margin-bottom:3em;
+}
+
+
+
+#aboutmediv > h2{
+  color:#ff9681;
+}
+
+.card {
+    margin:auto;
+    margin-top:40px;
+    padding-top:20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 #ff9681; 
+    width: 23% !important;
+    border-radius: 5px; 
+}
+
+.center{
+  text-align: center
+}
+
+.center > img {
+  border-radius: 100%;
+  width:65%; 
+  margin:0 auto;
+}
+
+.about {
+    width: auto !important;
+    margin-right: 2em;
+    margin-left: 2em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
+    font-size:1.3em;
+}
+
+.about > h2 {
+  color:#ff9681;
+}
+
+.inner-wrapper > h2 {
+  color:#ff9681;
+}
+
+.intro {
+    border-bottom: thin solid black;
+    background-image: linear-gradient(to right, white , #ff9681);
+}
 #titleHeader {
     font-family: "Titillium Web", sans-serif;
     text-transform: uppercase;
@@ -26,21 +131,22 @@
     font-weight: bold;
     letter-spacing: 0.3em;
     color:#ff9681;
+    margin-top:1em;
   }
 
 body { 
-  background:#eeeeee; 
+  background:#eeeeee !important; 
   letter-spacing:.05em;
   margin:5em;
   font-family:"Titillium Web", sans-serif;
-  min-width:300px;
+  min-width:700px;
  }
 
 nav {
-	text-align: center;
-	font-size: 1.25em;
-  }	
-	
+  text-align: center;
+  font-size: 1.25em;
+  } 
+  
 nav ul {
   list-style:none;
   text-align: center;
@@ -63,6 +169,10 @@ nav a {
   padding: .5em;  
   text-decoration:none;
   }
+
+a:link { 
+  color: #ff9681; 
+} 
 
 nav a:hover {
   background: #ff9681;
@@ -87,10 +197,15 @@ h2 {
 }*/
 
 #content {
-  max-width: 600px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-/*  display:inline-block;*/
+}
+
+#contentDiv {
+  display:flex;
+  margin-right:1em;
+  margin-left:1em;
 }
 
 
@@ -112,6 +227,7 @@ h2 {
   padding-bottom: 0.2em;
   padding-left: 0.5em;
   background-color:white;
+
 }
 
 .panel {
@@ -158,6 +274,7 @@ h2 {
   height: 100%;
   font-size:18px;
   color: #ff9681;
+  padding-right: 3.8em;
 }
 
 .submit-btn{
@@ -167,11 +284,49 @@ h2 {
   cursor: pointer;
   color: #eeeeee;
   background: #ff9681;
+  background-color: #ff9681 !important;
+  border-color: #ff9681 !important;
   border: 0px;
   width: 30%;
   height: 100%;
-  border-radius: 50px;
+  border-radius: 50px !important;
+  line-height: 0em !important;
   outline: none;
   font-size: 18px;
 }
 
+#intro {
+    background: white;
+    border: #ff9681;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-style: double;
+    float:left;
+    width:20%;
+    margin-right:1em;
+}
+
+#actives {
+    padding: 1em;
+    border-color: #ff9681;
+    background-color:white;
+    margin-bottom: 1em;
+    border-style: double;
+    float:left;
+    width:20%;
+}
+
+#lostDiv {
+  float:left;
+/*  width:60%;*/
+  margin-right:1em;
+  width:100%;
+}
+
+.message-body img {
+    width: 98%;
+}
+
+.first-page {
+  display: inline-block;
+}

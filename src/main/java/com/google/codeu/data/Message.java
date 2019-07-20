@@ -25,6 +25,7 @@ public class Message {
   private String user;
   private String text;
   private long timestamp;
+  private String imageUrl;
 
   private String title;
   private String description;
@@ -36,6 +37,7 @@ public class Message {
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
+<<<<<<< HEAD
   public Message(String user, String text, String title, String description,
                  String location,
                  String lostOrFound) {
@@ -46,15 +48,34 @@ public class Message {
   public Message(UUID id, String user, String text, long timestamp,
                  String title, String description, String location,
                  String lostOrFound) {
+=======
+  public Message(String user, String text) {
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis(), "/elaine.png");
+  }
+
+  /**
+   * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
+   * random ID and uses the current system time for the creation time.
+   */
+  public Message(String user, String text, String imageUrl) {
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis(), imageUrl);
+  }
+
+  public Message(UUID id, String user, String text, long timestamp, String imageUrl) {
+>>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
+<<<<<<< HEAD
 
     this.title = title;
     this.description = description;
     this.location = location;
     this.lostOrFound = lostOrFound;
+=======
+    this.imageUrl = imageUrl;
+>>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
   }
 
   public UUID getId() {
@@ -73,6 +94,7 @@ public class Message {
     return timestamp;
   }
 
+<<<<<<< HEAD
 
   public String getTitle() {
     return title;
@@ -96,5 +118,9 @@ public class Message {
 
   public void setDescription(String description) {
     this.description = description;
+=======
+  public String getImageUrl() {
+    return imageUrl;
+>>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
   }
 }

@@ -28,7 +28,7 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-item-handler"); %>
     <script src="/js/user-page-loader.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
-  <body onload="buildUI();">
+  <body>
     <div id="content">
     <nav>
       <ul id="navigation">
@@ -36,47 +36,55 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-item-handler"); %>
         <li><a href="/aboutus.html">About Our Team</a></li>
       </ul>
     </nav>
-    <h1 id="page-title">User Page</h1>
+    <h1 id="titleHeader">User Page</h1>
 
-    <div id="title-container">Loading...</div>
+<form action="/description" method="POST">
+    <div id="title-container">This user has not entered any information yet.</div>
   <div id="title-form" class="hidden">
-  <form action="/title" method="POST">
+
     <textarea name="title" placeholder="title" rows=2 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div>
+  </div>
 
-<div id="description-container">Loading...</div>
+<div id="description-container">This user has not entered any information yet.</div>
   <div id="description-form" class="hidden">
-  <form action="/description" method="POST">
     <textarea name="description" placeholder="description" rows=4 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div>
 
-<div id="location-container">Loading...</div>
+  </div>
+
+<div id="location-container">This user has not entered any information yet.</div>
   <div id="location-form" class="hidden">
-  <form action="/location" method="POST">
     <textarea name="location" placeholder="location" rows=4 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
+
 </div>
 
-<div id="lostOrFound-container">Loading...</div>
+<div id="lostOrFound-container">This user has not entered any information yet.</div>
   <div id="lostOrFound-form" class="hidden">
-  <form action="/lostOrFound" method="POST">
     <textarea name="lostOrFound" placeholder="lostOrFound" rows=1 required></textarea>
     <br/>
-    <input type="submit" value="Submit">
-  </form>
-</div>
 
-    <form action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
-      <p>Type some text:</p>
-      <textarea name="message"></textarea>
+
+</div>
+<input type="submit" value="Submit">
+</form>
+
+  <!-- <form id="message-form" action="/messages" method="POST" class="hidden">
+    Enter a new message:
+    <br/>
+    <textarea name="text" id="message-input"></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form> -->
+  <hr/>
+
+  <!-- <form id="message-form" action="/messages" method="POST" class="hidden"> -->
+
+    <form id="message-form" action="<%= uploadUrl %>" method="POST" enctype="multipart/form-data">
+      Enter a new message:
+      <br/>
+      <textarea name="text" id="message-input"></textarea>
       <br/>
       <p>Upload an image:</p>
       <input type="file" name="image">
@@ -84,16 +92,13 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-item-handler"); %>
       <button>Submit</button>
     </form>
 
-    <!--<form id="message-form" action="/messages" method="POST" class="hidden">-->
-      <!--Enter a new message:-->
-      <!--<br/>-->
-      <!--<textarea name="text" id="message-input"></textarea>-->
-      <!--<br/>-->
-      <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
-    <!--<hr/>-->
 
-    <div id="message-container">Loading...</div>
+
+    <div id="message-container" class="message-container">Loading...</div>
+
+    <script>
+      buildUI();
+  </script>
   </div>
 
 
