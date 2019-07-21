@@ -47,7 +47,7 @@ if (!parameterUsername) {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('titleHeader').innerText = parameterUsername;
+  document.getElementsByClassName('userpage')[0].innerText = parameterUsername;
   document.title = parameterUsername + ' - User Page';
 }
 
@@ -64,12 +64,13 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
+          document.getElementById('title-form').classList.remove('hidden');
+          document.getElementById('description-form').classList.remove('hidden');
+          document.getElementById('location-form').classList.remove('hidden');
+          document.getElementById('lostOrFound-form').classList.remove('hidden');
         }
       });
-      document.getElementById('title-form').classList.remove('hidden');
-      document.getElementById('description-form').classList.remove('hidden');
-      document.getElementById('location-form').classList.remove('hidden');
-      document.getElementById('lostOrFound-form').classList.remove('hidden');
+    
 }
 
 /** Fetches messages and add them to the page. */

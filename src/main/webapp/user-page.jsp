@@ -29,7 +29,11 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
     <link rel="icon" type="image/png" href="icon.png">
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<<<<<<< HEAD
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+=======
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"> 
+>>>>>>> 9928cae0a9f14a34e8b8b062496454e7bcd6d1e4
   </head>
   <body>
     <h1 id="titleHeader"><a href="/">WALDO</a></h1>
@@ -41,8 +45,13 @@ String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
       </ul>
     </nav>
     <div id="content">
+<<<<<<< HEAD
 
     <h2 id = "aboutmeh2" class="userpage">User Page</h2>
+=======
+      
+    <h2 id = "aboutmeh2" class="userpage">User Page</h2> 
+>>>>>>> 9928cae0a9f14a34e8b8b062496454e7bcd6d1e4
     <hr/>
 
 <form action="/items" method="POST">
