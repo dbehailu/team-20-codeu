@@ -37,6 +37,8 @@
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
+const parameterItem = urlParams.get('id'); // should be item id
+
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
@@ -120,43 +122,42 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
-      function buildSummaryDiv(message){
+function buildSummaryDiv(message){
+    const cardWrap = document.createElement('div');
+    cardWrap.classList.add("card-wrap");
+    cardWrap.classList.add("hover");
 
-        const cardWrap = document.createElement('div');
-        cardWrap.classList.add("card-wrap");
-        cardWrap.classList.add("hover");
-
-        const card = document.createElement('div');
-         card.classList.add("card-lost");
+    const card = document.createElement('div');
+    card.classList.add("card-lost");
 
 
-         const timeDiv = document.createElement('div');
-         timeDiv.classList.add('inner-wrapper');
-         timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
-         timeDiv.appendChild(document.createElement("br"));
-         timeDiv.appendChild(document.createElement("br"));
-         timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
-         var line = document.createElement("hr");
-         line.classList.add("line");
-         timeDiv.appendChild(line);
+    const timeDiv = document.createElement('div');
+    timeDiv.classList.add('inner-wrapper');
+    timeDiv.appendChild(document.createElement("H2").appendChild(document.createTextNode(formatDate(new Date(message.timestamp)))));
+    timeDiv.appendChild(document.createElement("br"));
+    timeDiv.appendChild(document.createElement("br"));
+    timeDiv.appendChild(document.createElement("p").appendChild(document.createTextNode(message.user)));
+    var line = document.createElement("hr");
+    line.classList.add("line");
+    timeDiv.appendChild(line);
 
-         const cardInfo = document.createElement('div');
-         cardInfo.insertAdjacentHTML('beforeend', message.text);
+    const cardInfo = document.createElement('div');
+    cardInfo.insertAdjacentHTML('beforeend', message.text);
 
-         card.appendChild(timeDiv);
-         card.appendChild(cardInfo);
-         cardWrap.appendChild(card);
+    card.appendChild(timeDiv);
+    card.appendChild(cardInfo);
+    cardWrap.appendChild(card);
 
-         return cardWrap;
-      }
+    return cardWrap;
+}
 
 
 function fetchTitle(){
-  const url = '/description?user=' + parameterUsername;
+  const url = '/items?id=' + parameterItem;
   fetch(url).then((response) => {
     return response.text();
-  }).then((user) => {
-    let title = JSON.parse(user).title;
+  }).then((item) => {
+    let title = JSON.parse(item).title;
     const titleContainer = document.getElementById('title-container');
     if(title == ''){
       title = 'This user has not entered any information yet.';
@@ -166,11 +167,11 @@ function fetchTitle(){
 }
 
 function fetchDescription(){
-  const url = '/description?user=' + parameterUsername;
+  const url = '/items?id=' + parameterItem;
   fetch(url).then((response) => {
     return response.text();
-  }).then((user) => {
-    let description = JSON.parse(user).description;
+  }).then((item) => {
+    let description = JSON.parse(item).description;
     const descriptionContainer = document.getElementById('description-container');
     if(description == ''){
       description = 'This user has not entered any information yet.';
@@ -180,11 +181,11 @@ function fetchDescription(){
 }
 
 function fetchLocation(){
-  const url = '/description?user=' + parameterUsername;
+  const url = '/items?id=' + parameterItem;
   fetch(url).then((response) => {
     return response.text();
-  }).then((user) => {
-    let location = JSON.parse(user).location;
+  }).then((item) => {
+    let location = JSON.parse(item).location;
     const locationContainer = document.getElementById('location-container');
     if(location == ''){
       location = 'This user has not entered any information yet.';
@@ -194,11 +195,11 @@ function fetchLocation(){
 }
 
 function fetchLostOrFound(){
-  const url = '/description?user=' + parameterUsername;
+  const url = '/items?id=' + parameterItem;
   fetch(url).then((response) => {
     return response.text();
-  }).then((user) => {
-    let lostOrFound = JSON.parse(user).lostOrFound;
+  }).then((item) => {
+    let lostOrFound = JSON.parse(item).lostOrFound;
     const lostOrFoundContainer = document.getElementById('lostOrFound-container');
     if(lostOrFound == ''){
       lostOrFound = 'This user has not entered any information yet.';

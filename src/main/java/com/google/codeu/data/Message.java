@@ -27,28 +27,10 @@ public class Message {
   private long timestamp;
   private String imageUrl;
 
-  private String title;
-  private String description;
-  private String location;
-  private String lostOrFound;
-
-
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-<<<<<<< HEAD
-  public Message(String user, String text, String title, String description,
-                 String location,
-                 String lostOrFound) {
-    this(UUID.randomUUID(), user, text, System.currentTimeMillis(),
-            title, description, location, lostOrFound);
-  }
-
-  public Message(UUID id, String user, String text, long timestamp,
-                 String title, String description, String location,
-                 String lostOrFound) {
-=======
   public Message(String user, String text) {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis(), "/elaine.png");
   }
@@ -62,20 +44,11 @@ public class Message {
   }
 
   public Message(UUID id, String user, String text, long timestamp, String imageUrl) {
->>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
-<<<<<<< HEAD
-
-    this.title = title;
-    this.description = description;
-    this.location = location;
-    this.lostOrFound = lostOrFound;
-=======
     this.imageUrl = imageUrl;
->>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
   }
 
   public UUID getId() {
@@ -94,33 +67,7 @@ public class Message {
     return timestamp;
   }
 
-<<<<<<< HEAD
-
-  public String getTitle() {
-    return title;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public String getLostOrFound() {
-    return lostOrFound;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-=======
   public String getImageUrl() {
     return imageUrl;
->>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
   }
 }

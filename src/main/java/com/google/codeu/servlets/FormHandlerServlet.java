@@ -8,6 +8,8 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
+import com.google.codeu.data.Item;
+
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -61,16 +63,29 @@ public class FormHandlerServlet extends HttpServlet {
         String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
         String replacement = "<img src=\"$1\" />";
         String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-//        String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
         String imageUrl = getUploadedFileUrl(request, "image");
         if (imageUrl != null) {
             imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\">";
             textWithImagesReplaced=textWithImagesReplaced+imageUrl;
         }
+
+        String title = Jsoup.clean(request.getParameter("title"),
+                Whitelist.relaxed());
+        String description = Jsoup.clean(request.getParameter("description"),
+                Whitelist.relaxed());
+        String location = Jsoup.clean(request.getParameter("location"),
+                Whitelist.relaxed());
+        String lostOrFound = Jsoup.clean(request.getParameter("lostOrFound"),
+                Whitelist.relaxed());
+
         Message message = new Message(user,textWithImagesReplaced,imageUrl);
         datastore.storeMessage(message);
 
+        Item item = new Item(user, textWithImagesReplaced, imageUrl, title,
+                description, location, lostOrFound);
+
         response.sendRedirect("/user-page.jsp?user=" + user);
+
     }
 
     /**

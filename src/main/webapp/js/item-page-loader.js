@@ -14,91 +14,102 @@
  * limitations under the License.
  */
 
-// Get ?user=XYZ parameter value
+// Get ?item=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
-const parameterMessage = urlParams.get('message');
+const parameterItem = urlParams.get('id');
 
-// URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (!parameterMessage) {
+// URL must include ?item=XYZ parameter. If not, redirect to homepage.
+if (!parameterItem) {
   window.location.replace('/');
 }
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterMessage;
-  document.title = parameterMessage + ' - Item Page';
+  document.getElementById('page-title').innerText = parameterItem;
+  document.title = parameterItem + ' - Item Page';
 }
 
 
-function fetchTitle(){
-  const url = '/title?message=' + parameterMessage;
+function fetchItem(){
+  const url = '/items?id=' + parameterItem;
   fetch(url).then((response) => {
-    return response.text();
-  }).then((title) => {
-    const titleContainer = document.getElementById('title-container');
-    if(title == ''){
-      title = 'This user has not entered any information yet.';
+    return response.json();
+  }).then((item) => {
+    const itemContainer = document.getElementById('item-container');
+    if(id == ''){
+      itemContainer.innerHTML = 'This item no longer exists.';
     }
 
-    titleContainer.innerHTML = title;
-
+    const itemDiv = buildItemDiv(item);
+    itemContainer.appendChild(itemDiv);
   });
 }
 
-function fetchDescription(){
-  const url = '/description?message=' + parameterMessage;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((description) => {
-    const descriptionContainer = document.getElementById('description-container');
-    if(description == ''){
-      description = 'This user has not entered any information yet.';
-    }
 
-    descriptionContainer.innerHTML = description;
+function buildItemDiv(item) {
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('message-header');
+    headerDiv.classList.add('padded');
 
-  });
+    headerDiv.appendChild(document.createTextNode(
+      item.user + ' - ' + formatDate(message.timestamp)));
+
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('message-body');
+    titleDiv.classList.add('padded');
+    titleDiv.innerHTML = 'Title: ' + item.title;
+
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.classList.add('message-body');
+    descriptionDiv.classList.add('padded');
+    descriptionDiv.innerHTML = 'Description: ' + item.description;
+
+    const locationDiv = document.createElement('div');
+    locationDiv.classList.add('message-body');
+    locationDiv.classList.add('padded');
+    locationDiv.innerHTML = 'Location: ' + item.location;
+
+    const lostOrFoundDiv = document.createElement('div');
+    lostOrFoundDiv.classList.add('message-body');
+    lostOrFoundDiv.classList.add('padded');
+    lostOrFoundDiv.innerHTML = 'Status: ' + item.lostOrFound;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('rounded');
+    messageDiv.classList.add('panel');
+    messageDiv.appendChild(headerDiv);
+    messageDiv.appendChild(titleDiv);
+    messageDiv.appendChild(descriptionDiv);
+    messageDiv.appendChild(locationDiv);
+    messageDiv.appendChild(lostOrFoundDiv);
+
+
+    return messageDiv;
 }
 
-function fetchLocation(){
-  const url = '/location?message=' + parameterMessage;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((location) => {
-    const locationContainer = document.getElementById('location-container');
-    if(location == ''){
-      location = 'This user has not entered any information yet.';
-    }
+function formatDate(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        if (hours < 12) {
+          ampm = "am";
+        } else {
+          ampm = "pm";
+        }
+        hours = hours % 12;
+        if (hours == 0) {
+          hours = 12;
+        }
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        var time = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + time;
+      }
 
-    locationContainer.innerHTML = location;
-
-  });
-}
-function fetchLostOrFound(){
-  const url = '/lostOrFound?message=' + parameterMessage;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((lostOrFound) => {
-    const lostOrFoundContainer = document.getElementById('lostOrFound-container');
-    if(lostOrFound == ''){
-      lostOrFound = 'This user has not entered any information yet.';
-    }
-
-    lostOrFoundContainer.innerHTML = lostOrFound;
-
-  });
-}
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
 
   setPageTitle();
-  showMessageFormIfViewingSelf();
-  fetchMessages();
-  fetchTitle();
-  fetchDescription();
-  fetchLocation();
-  fetchLostOrFound();
-  /**const config = {removePlugins: [ 'List', 'Table'  ]};*/
-  ClassicEditor.create(document.getElementById('message-input'));
+  fetchItem();
 }

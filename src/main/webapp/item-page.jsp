@@ -1,31 +1,37 @@
-<%@page import="com.google.codeu.data.Message"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
+Copyright 2019 Google Inc.
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-String uploadUrl = blobstoreService.createUploadUrl("/my-item-handler"); %>
-
+String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler"); %>
 
 <!DOCTYPE html>
 <html>
   <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <title>Item Page</title>
+    <title>Item Page</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user-page.css">
+    <script src="/js/item-page-loader.js"></script>
+    <link rel="icon" type="image/png" href="icon.png">
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <script>
+          buildUI();
+      </script>
   </head>
-  <body>
-  <%Message m = (Message) request.getAttribute("message");%>
-      <h1>User</h1>
-            <h2><%=m.getUser()%></h2>
-      <h1>Text</h1>
-            <h2><%=m.getText()%></h2>
-      <h1>Description</h1>
-            <h2><%=m.getDescription()%></h2>
-      <h1>Location</h1>
-            <h2><%=m.getLocation()%></h2>
-      <h1>lostOrFound</h1>
-            <h2><%=m.getLostOrFound()%></h2>
-    </body>
 </html>
-

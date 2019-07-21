@@ -20,6 +20,8 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
+import com.google.codeu.data.Item;
+
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
@@ -43,9 +45,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-/** Handles fetching and saving {@link Message} instances. */
-@WebServlet("/messages")
-public class MessageServlet extends HttpServlet {
+/** Handles fetching and saving {@link Item} instances. */
+@WebServlet("/items")
+public class ItemServlet extends HttpServlet {
 
     public String basicMarkdown(String text) {
         /**
@@ -88,14 +90,14 @@ public class MessageServlet extends HttpServlet {
             return;
         }
 
-        List<Message> messages = datastore.getMessages(user);
+        List<Item> items = datastore.getItems(user);
         Gson gson = new Gson();
-        String json = gson.toJson(messages);
+        String json = gson.toJson(items);
 
         response.getWriter().println(json);
     }
 
-    /** Stores a new {@link Message}. */
+    /** Stores a new {@link Item}. */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -104,46 +106,37 @@ public class MessageServlet extends HttpServlet {
             response.sendRedirect("/index.html");
             return;
         }
-
-        // Get the message entered by the user.
-        String mes = request.getParameter("message");
-
-        // Get the URL of the image that the user uploaded to Blobstore.
-        // String imageUrl = getUploadedFileUrl(request, "image");
-
-        // Output some HTML that shows the data the user entered.
-        // A real codebase would probably store these in Datastore.
-        // ServletOutputStream out = response.getOutputStream();
-        // out.println("<p>Here's the image you uploaded:</p>");
-        // out.println("<a href=\"" + imageUrl + "\">");
-        // out.println("<img src=\"" + imageUrl + "\" />");
-        // out.println("</a>");
-        // out.println("<p>Here's the text you entered:</p>");
-        // out.println(mes);
-
+//        Commented out because userText is null (fix this!)
+//        String user = userService.getCurrentUser().getEmail();
+//        String userText = Jsoup.clean(request.getParameter("text"),
+//                Whitelist.relaxed());
+//        String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
+//        String replacement = "<img src=\"$1\" />";
+//        String textWithImagesReplaced = userText.replaceAll(regex, replacement);
+//        Message message = new Message(user,textWithImagesReplaced);
 
         String user = userService.getCurrentUser().getEmail();
-        String userText = Jsoup.clean(request.getParameter("text"),
-                Whitelist.relaxed());
-        String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
-        String replacement = "<img src=\"$1\" />";
-        // String replacement = "(hover over card to view image)";
-
-        // Pattern pattern = Pattern.compile("(.*)");
-        // String image = "";
-        // Matcher matcher = pattern.matcher(userText);
-        // if (matcher.find())
-        // {
-        //     image = "<img src=" + matcher.group(1) +  "/>";
-        // }
-
-        String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-        // String textWithImagesReplacedMarkdown = basicMarkdown(textWithImagesReplaced);
-        Message message = new Message(user,textWithImagesReplaced);
+        String text = request.getParameter("text");
+        Message message = new Message(user,text);
         datastore.storeMessage(message);
 
 
-        response.sendRedirect("/user-page.jsp?user=" + user);
+        // Get the item entered by the user.
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String location = request.getParameter("location");
+        String lostOrFound = request.getParameter("lostOrFound");
+        String imageUrl = request.getParameter("imageUrl");
+
+        Item item = new Item(user, text, imageUrl, title,
+                description
+                , location, lostOrFound);
+
+        datastore.storeItem(item);
+
+//        response.sendRedirect("/user-page.jsp?user=" + user);
+        response.sendRedirect("/item-page.jsp?id=" + item.getId());
+
     }
 
     private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName){

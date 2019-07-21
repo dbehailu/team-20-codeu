@@ -32,79 +32,10 @@ import java.util.UUID;
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
-<<<<<<< HEAD
-  private DatastoreService datastore;
-
-  public Datastore() {
-    datastore = DatastoreServiceFactory.getDatastoreService();
-  }
-
-  public Set<String> getUsers(){
-    Set<String> users = new HashSet<>();
-    Query query = new Query("Message");
-    PreparedQuery results = datastore.prepare(query);
-    for(Entity entity : results.asIterable()) {
-      users.add((String) entity.getProperty("user"));
-    }
-    return users;
-  }
-
-  /** Stores the Message in Datastore. */
-  public void storeMessage(Message message) {
-    Entity messageEntity = new Entity("Message", message.getId().toString());
-    messageEntity.setProperty("user", message.getUser());
-    messageEntity.setProperty("text", message.getText());
-    messageEntity.setProperty("timestamp", message.getTimestamp());
-
-    messageEntity.setProperty("title", message.getTitle());
-    messageEntity.setProperty("description", message.getDescription());
-    messageEntity.setProperty("location", message.getLocation());
-    messageEntity.setProperty("lostOrFound", message.getLostOrFound());
-
-    datastore.put(messageEntity);
-  }
-
-  /**
-   * Gets messages posted by a specific user.
-   *
-   * @return a list of messages posted by the user, or empty list if user has never posted a
-   *     message. List is sorted by time descending.
-   */
-  public List<Message> getMessages(String user) {
-    List<Message> messages = new ArrayList<>();
-
-    Query query =
-        new Query("Message")
-            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
-            .addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-
-    for (Entity entity : results.asIterable()) {
-      try {
-        String idString = entity.getKey().getName();
-        UUID id = UUID.fromString(idString);
-        String text = (String) entity.getProperty("text");
-        long timestamp = (long) entity.getProperty("timestamp");
-
-        String title = (String) entity.getProperty("title");
-        String description = (String) entity.getProperty("description");
-        String location = (String) entity.getProperty("location");
-        String lostOrFound= (String) entity.getProperty("lostOrFound");
-
-        Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
-
-        messages.add(message);
-      } catch (Exception e) {
-        System.err.println("Error reading message.");
-        System.err.println(entity.toString());
-        e.printStackTrace();
-      }
-=======
     private DatastoreService datastore;
 
     public Datastore() {
         datastore = DatastoreServiceFactory.getDatastoreService();
->>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
     }
 
     public Set<String> getUsers(){
@@ -124,8 +55,21 @@ public class Datastore {
         messageEntity.setProperty("text", message.getText());
         messageEntity.setProperty("timestamp", message.getTimestamp());
         messageEntity.setProperty("imageUrl", message.getImageUrl());
-
         datastore.put(messageEntity);
+    }
+
+    /** Stores the Item in Datastore. */
+    public void storeItem(Item item) {
+        Entity itemEntity = new Entity("Item", item.getId().toString());
+        itemEntity.setProperty("user", item.getUser());
+        itemEntity.setProperty("text", item.getText());
+        itemEntity.setProperty("timestamp", item.getTimestamp());
+        itemEntity.setProperty("imageUrl", item.getImageUrl());
+        itemEntity.setProperty("title", item.getTitle());
+        itemEntity.setProperty("description", item.getDescription());
+        itemEntity.setProperty("location", item.getLocation());
+        itemEntity.setProperty("lostOrFound", item.getLostOrFound());
+        datastore.put(itemEntity);
     }
 
     /**
@@ -151,7 +95,9 @@ public class Datastore {
                 long timestamp = (long) entity.getProperty("timestamp");
                 String imageUrl = (String) entity.getProperty("imageUrl");
 
-                Message message = new Message(id, user, text, timestamp, imageUrl);
+                Message message = new Message(id, user, text, timestamp,
+                        imageUrl);
+
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -162,6 +108,50 @@ public class Datastore {
 
         return messages;
     }
+
+    /**
+     * Gets items posted by a specific user.
+     *
+     * @return a list of items posted by the user, or empty list if user has
+     * never posted a
+     *     item. List is sorted by time descending.
+     */
+    public List<Item> getItems(String user) {
+        List<Item> items = new ArrayList<>();
+
+        Query query =
+                new Query("Item")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                String text = (String) entity.getProperty("text");
+                long timestamp = (long) entity.getProperty("timestamp");
+                String imageUrl = (String) entity.getProperty("imageUrl");
+                String title = (String) entity.getProperty("title");
+                String description = (String) entity.getProperty("description");
+                String location = (String) entity.getProperty("location");
+                String lostOrFound = (String) entity.getProperty("lostOrFound");
+
+                Item item = new Item(id, user, text, timestamp,
+                        imageUrl, title, description, location, lostOrFound);
+
+                items.add(item);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return items;
+    }
+
+
 
 
 
@@ -188,7 +178,9 @@ public class Datastore {
                 long timestamp = (long) entity.getProperty("timestamp");
                 String imageUrl = (String) entity.getProperty("imageUrl");
 
-                Message message = new Message(id, user, text, timestamp, imageUrl);
+                Message message = new Message(id, user, text, timestamp,
+                        imageUrl);
+
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -200,90 +192,58 @@ public class Datastore {
         return messages;
     }
 
-<<<<<<< HEAD
-      String title = (String) entity.getProperty("title");
-      String description = (String) entity.getProperty("description");
-      String location = (String) entity.getProperty("location");
-      String lostOrFound= (String) entity.getProperty("lostOrFound");
-
-      Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
-
-      messages.add(message);
-     } catch (Exception e) {
-      System.err.println("Error reading message.");
-      System.err.println(entity.toString());
-      e.printStackTrace();
-     }
-    }
-
-    return messages;
-   }
-
-  /** Returns the total number of messages for all users. */
-  public int getTotalMessageCount(){
-    Query query = new Query("Message");
-    PreparedQuery results = datastore.prepare(query);
-    return results.countEntities(FetchOptions.Builder.withLimit(1000));
-  }
-
-  /** Stores the User in Datastore. */
-public void storeUser(User user) {
- Entity userEntity = new Entity("User", user.getEmail());
- userEntity.setProperty("email", user.getEmail());
- datastore.put(userEntity);
-}
-
-/**
- * Returns the User owned by the email address, or
- * null if no matching User was found.
- */
-public User getUser(String email) {
-
- Query query = new Query("User")
-   .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
- PreparedQuery results = datastore.prepare(query);
- Entity userEntity = results.asSingleEntity();
- if(userEntity == null) {
-  return null;
- }
- User user = new User(email);
-
- return user;
-}
-
-
     /**
-     * Returns message, or
-     * null if no matching User was found.
+     * Gets items posted by all users. (Encapsulated version)
+     *
+     * @return a list of items posted by all users, or empty list if user has
+     * never posted a
+     *     item. List is sorted by time descending.
      */
-    public Message getMessage(String title) {
 
-        Query query = new Query("Message")
-                .setFilter(new Query.FilterPredicate("title",
-                        FilterOperator.EQUAL, title));
+    public List<Item> getAllItems(){
+        List<Item> items = new ArrayList<>();
+
+        Query query = new Query("Item")
+                .addSort("timestamp", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);
-        Entity messageEntity = results.asSingleEntity();
-        if(messageEntity == null) {
-            return null;
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                String user = (String) entity.getProperty("user");
+                String text = (String) entity.getProperty("text");
+                long timestamp = (long) entity.getProperty("timestamp");
+                String imageUrl = (String) entity.getProperty("imageUrl");
+                String title = (String) entity.getProperty("title");
+                String description = (String) entity.getProperty("description");
+                String location = (String) entity.getProperty("location");
+                String lostOrFound = (String) entity.getProperty("lostOrFound");
+
+                Item item = new Item(id, user, text, timestamp,
+                        imageUrl, title, description, location, lostOrFound);
+
+                items.add(item);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
         }
 
-        String idString = messageEntity.getKey().getName();
-        UUID id = UUID.fromString(idString);
-        String user = (String) messageEntity.getProperty("user");
-        String text = (String) messageEntity.getProperty("text");
-        long timestamp = (long) messageEntity.getProperty("timestamp");
+        return items;
+    }
 
-        String description = (String) messageEntity.getProperty("description");
-        String location = (String) messageEntity.getProperty("location");
-        String lostOrFound= (String) messageEntity.getProperty("lostOrFound");
-
-        Message message = new Message(id, user, text, timestamp, title, description, location, lostOrFound);
-
-        return message;
-=======
     /** Returns the total number of messages for all users. */
     public int getTotalMessageCount(){
         Query query = new Query("Message");
+        PreparedQuery results = datastore.prepare(query);
+        return results.countEntities(FetchOptions.Builder.withLimit(1000));
+    }
+
+    /** Returns the total number of items for all users. */
+    public int getTotalItemCount(){
+        Query query = new Query("Item");
         PreparedQuery results = datastore.prepare(query);
         return results.countEntities(FetchOptions.Builder.withLimit(1000));
     }
@@ -292,10 +252,6 @@ public User getUser(String email) {
     public void storeUser(User user) {
         Entity userEntity = new Entity("User", user.getEmail());
         userEntity.setProperty("email", user.getEmail());
-        userEntity.setProperty("title", user.getTitle());
-        userEntity.setProperty("description", user.getDescription());
-        userEntity.setProperty("location", user.getLocation());
-        userEntity.setProperty("lostOrFound", user.getLostOrFound());
         datastore.put(userEntity);
     }
 
@@ -312,13 +268,8 @@ public User getUser(String email) {
         if(userEntity == null) {
             return null;
         }
-        String title = (String) userEntity.getProperty("title");
-        String description = (String) userEntity.getProperty("description");
-        String location = (String) userEntity.getProperty("location");
-        String lostOrFound= (String) userEntity.getProperty("lostOrFound");
-        User user = new User(email, title, description, location, lostOrFound);
+        User user = new User(email);
 
         return user;
->>>>>>> 587fde96cd3d8f58f999c89992dcd86ee77cb4dc
     }
 }
